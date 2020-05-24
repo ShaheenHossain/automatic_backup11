@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report id="action_ir_most_selling_product" model="stock.move"
+        string="Top Selling Products(PDF)" report_type="qweb-pdf"
+        name="most_selling_product.ir_most_selling_product" file="most_selling_product.ir_most_selling_product"
+        menu="False" />
+
+    <menuitem id="menu_topselling_report" name="Top Selling Products"
+        parent="stock.menu_stock_root" sequence="98"
+        groups="group_most_selling_products" />
+
+    <menuitem action="top_selling_dashboard_action" id="menu_top_sellng_dashboard_action"
+        parent="menu_topselling_report" sequence="1" name="Dashboard"
+        groups="group_most_selling_products" />
+
+    <menuitem action="top_sellng_view_report_action" id="topselling_screen_report"
+        parent="menu_topselling_report" sequence="2" name="Screen Report"
+        groups="group_most_selling_products" />
+
+    <menuitem action="action_top_selling" id="menu_child1_top_selling_report"
+        parent="menu_topselling_report" sequence="4" name="PDF Report"
+        groups="group_most_selling_products" />
+
+    <menuitem action="view_autoschedule_tsp_action" id="menu_autoschedule_tsp_action"
+        parent="menu_topselling_report" sequence="8" name="AutoSchedule Email"
+        groups="group_most_selling_products" />
+
+</odoo>

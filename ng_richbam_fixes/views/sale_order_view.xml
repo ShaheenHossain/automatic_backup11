@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+        <record id="view_sales_order_fixes" model="ir.ui.view">
+            <field name="name">sales.order.fixes</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <field name="confirmation_date" position="replace">
+                    <field name="confirmation_date" attributes="{'readonly': [('state', 'not in', ('draft'))]}"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

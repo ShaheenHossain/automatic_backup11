@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Truck Request Line Tree View -->
+        <record id='truck_request_line_tree_view' model='ir.ui.view'>
+            <field name='name'>truck.request.line.tree.view</field>
+            <field name='model'>truck.request.line</field>
+            <field name='arch' type='xml'>
+                <tree string="Truck Request Line" editable="bottom">
+                    <field name='partner_id' options="{'no_open':True,'no_create':True}"
+                           domain="[('is_station', '=', True)]"/>
+                    <field name='qty_required' sum="Total Qty"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Truck Request Line Form View -->
+        <record id='truck_request_line_form_view' model='ir.ui.view'>
+            <field name='name'>truck.request.line.form.view</field>
+            <field name='model'>truck.request.line</field>
+            <field name='arch' type='xml'>
+                <form string="Truck Request Line">
+                    <group>
+                        <field name='partner_id' options="{'no_open':True,'no_create':True}" required="True"/>
+                        <field name='qty_required'/>
+                    </group>
+                </form>
+            </field>
+        </record>
+      
+        <!-- Truck Request Tree View -->
+        <record id='truck_request_tree_view' model='ir.ui.view'>
+            <field name='name'>truck.request.tree.view</field>
+            <field name='model'>truck.request</field>
+            <field name='arch' type='xml'>
+                <tree string="Truck Request" decoration-bf="state=='draft'" decoration-success="state=='open'" decoration-danger="state=='reject'" decoration-warning="state=='cancel'" decoration-muted="state=='approve'" >
+                    <field name='name'/>
+                    <field name="requester"/>
+                    <field name='product_type' />
+                    <field name="capacity_req" />
+                    <field name="date_submitted" />
+                    <field name='date_loading' />
+                    <field name='date_arrival' />
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Truck Request Form View -->
+        <record id='truck_request_form_view' model='ir.ui.view'>
+            <field name='name'>truck.request.form.view</field>
+            <field name='model'>truck.request</field>
+            <field name='arch' type='xml'>
+                <form string="Truck Request">
+                    <header>
+                        <button string="Confirm" groups="ng_fleet_petroleum.truck_requester_hq" name="get_confirm"
+                                states="draft" type="object" class="btn-default" />
+                        <field name="state" widget='statusbar' statusbar_visible="draft,open,approve"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name='name' placeholder="Request for Truck for Station A....."/>
+                                <field name='product_type' domain="[('is_petroleum','=', True)]"/>
+                                <field name='depot_location' domain="[('is_depot','=', True)]" />
+                                <field name="requester"/>
+                                <field name="date_submitted" />
+                            </group>
+                            <group>
+                                <field name='truck_id' states='open'/>
+                                <field name="type"/>
+                                <label for="capacity_req" class="oe_inline"/>
+                                <div>
+                                    <field name="capacity_req" class="oe_inline"/>
+                                    <field name="product_uom_id" class="oe_inline" widget="selection"/>
+                                </div>
+                                <field name='date_loading' />
+                                <field name='date_arrival' />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Request lines">
+                                <field name="order_lines" nolabel="1" context="{'default_request_id': active_id}"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Truck Request Kanban View -->
+        <record id='truck_request_kanban_view' model='ir.ui.view'>
+            <field name='name'>truck.request.kanban.view</field>
+            <field name='model'>truck.request</field>
+            <field name='arch' type='xml'>
+                <kanban default_group_by="state" quick_create="true">
+                    <field name="requester" />
+                    <field name="truck_id"/>
+                    <!-- Templates -->
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                <div class="oe_kanban_content">
+                                    <h4><a type="open">
+                                        <field name="name" />
+                                    </a></h4>
+                                    <ul>
+                                        <li><field name="requester" /></li>
+                                        <li><field name="truck_id" /></li>
+                                    </ul>
+                                    <div class="oe_kanban_bottom_right">
+                                        <field name="kanban_state"
+                                            widget="kanban_state_selection"/>
+                                    </div>
+                                    <div class="oe_kanban_footer_left">
+                                        <field name="priority" widget="priority"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- Action for Truck Request -->
+        <record id='truck_request_action' model='ir.actions.act_window'>
+            <field name='name'>Truck request</field>
+            <field name='res_model'>truck.request</field>
+            <field name='type'>ir.actions.act_window</field>
+            <field name='view_mode'>tree,form,kanban</field>
+            <field name='help'>You can manage requests from here</field>
+        </record>
+
+        <!-- Modify menu item -->
+        <record id="fleet.fleet_vehicles" model="ir.ui.menu">
+            <field name="sequence">4</field>
+        </record>
+
+        <!-- Menu to view configured truck routes -->
+        <menuitem id="fleet_menu_child" name="Fleet Services" parent="fleet.menu_root" sequence="0" groups="ng_fleet_petroleum.truck_requester_hq"/>
+
+        <!-- Menu for truck request -->
+        <menuitem id="truck_request_menu" name="Request for Truck" parent="fleet_menu_child" action="truck_request_action" sequence="1"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,17 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="mrp_routing_form_view_account_row">
+			<field name="name">mrp.routing</field>
+			<field name="inherit_id" ref="mrp.mrp_routing_form_view" />
+			<field name="model">mrp.routing</field>
+			<field name="arch" type="xml">
+				<data>
+					<field name="location_id" position="after">
+						<field name="journal_id" />
+						<field name="writeoff_account_id" />
+					</field>
+				</data>
+			</field>
+		</record>
+    </data>
+</odoo>

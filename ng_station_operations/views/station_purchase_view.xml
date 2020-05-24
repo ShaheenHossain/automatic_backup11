@@ -1,0 +1,35 @@
+<odoo>
+    <data>
+        <menuitem id="station_purchase_menu" name="Purchase" sequence="5" parent="station_operation_top_menu"/>
+
+
+        <record id="view_purchase_product" model="ir.ui.view">
+            <field name="name">purchase.order</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date_order']" position="after">
+                    <field name="is_petroleum"/>
+                    <field name="loading_ticket_number" attrs="{'invisible':[('is_petroleum', '!=', True)]}"/>
+                </xpath>
+                <field name="partner_ref" position="after">
+                    <field name="depot_id" attrs="{'invisible':[('is_petroleum', '!=', True)]}"/>
+                    <field name="deliver_to" attrs="{'invisible':[('is_petroleum', '!=', False)]}"/>
+                </field>
+            </field>
+         </record>
+
+
+        <record model="ir.actions.act_window" id="station_purchase_order_action">
+            <field name="name">Purchase Order</field>
+            <field name="res_model">purchase.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form,pivot,graph</field>
+        </record>
+
+
+          <!-- Start of  All Purchase Menu -->
+        <menuitem id="station_purchase_order" name="Purchase Orders" parent="station_purchase_menu" action="station_purchase_order_action" sequence="5"/>
+         <!-- End of  All Purchase Menu -->
+    </data>
+</odoo>

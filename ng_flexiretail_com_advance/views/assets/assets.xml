@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="index" name="ng_flexiretail_com_advance index" inherit_id="point_of_sale.index">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/ng_flexiretail_com_advance/static/src/js/screens.js"></script>
+                <link rel="stylesheet" href="/ng_flexiretail_com_advance/static/src/css/styles.css" />
+            </xpath>
+        </template>
+    </data>
+</odoo>

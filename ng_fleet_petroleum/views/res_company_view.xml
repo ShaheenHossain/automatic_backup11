@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="company_view_extend" model="ir.ui.view">
+            <field name="name">company_view_extend</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form//sheet//div" position="after">
+                    <div>
+                        <separator string="Mark if Head Office"/>
+                    </div>
+                    <div class="col-xs-12">
+                        <button name="check_head_office" type="object" string="Is head Office" class="oe_highlight col-xs-2"/>
+                        <field class="col-xs-3 col-xs-offset-2" style="text-align:'center'; margin-top:'20px'" name="is_head_office"/>
+                    </div>
+                    <div>
+                        <separator string="Mark if Fleet Company"/>
+                    </div>
+                    <div class="col-xs-12">
+                        <button name="check_truck_office" type="object" string="Is Fleet Coy" class="oe_highlight col-xs-2"/>
+                        <field class="col-xs-3 col-xs-offset-2" style="text-align:'center'; margin-top:'20px'" name="is_fleet_coy"/>
+                    </div>
+                    <group>
+                        <field name="company_type"/>
+                    </group>
+                    <div class="col-xs-10 margin-left: 0">
+                        <div class="col-xs-5">
+                            <h4><label for="default_template_id"/></h4>
+                        </div>
+                        <div>
+                            <field name="default_template_id" />
+                        </div>
+                    </div>
+                    <br/><br/>
+                    <br/><br/>
+                </xpath>
+                <notebook position="inside">
+                    <page name="account_info" string="Default Fleet Account">
+                        <group>
+                            <field name="fleet_income_acct"/>
+                            <field name="fleet_expense_acct" />
+                        </group>
+                    </page>
+                    <page name="recharge_account_info" string="Recharges Account">
+                        <group>
+                            <field name="recharge_account_id"/>
+                        </group>
+                    </page>
+                </notebook>
+            </field>            
+        </record>
+    </data>
+</odoo>

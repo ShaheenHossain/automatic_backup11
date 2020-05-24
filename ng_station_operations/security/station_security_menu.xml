@@ -1,0 +1,62 @@
+<odoo>
+    <data>
+        <record id="group_discharge_menu" model="res.groups">
+           <field name="name">Discharge Manager</field>
+           <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+         <record id="group_manager" model="res.groups">
+           <field name="name">Station Manager</field>
+           <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+         </record>
+
+        <record id="attendant_record_rule" model="ir.rule">
+            <field name="name">Attendant Return</field>
+            <field name="model_id" ref="model_attendant_return"/>
+            <field eval="True" name="global"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+            <field name="groups" eval="[(4,ref('base.group_user'))]"/>
+        </record>
+
+        <record id="ticket_record_rule" model="ir.rule">
+            <field name="name">Loading Ticket</field>
+            <field name="model_id" ref="model_loading_ticket"/>
+            <field eval="True" name="global"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+            <field name="groups" eval="[(4,ref('base.group_user'))]"/>
+        </record>
+
+        <record id="dispenser_readings_record_rule" model="ir.rule">
+            <field name="name">Dispenser Readings</field>
+            <field name="model_id" ref="model_create_dispenser_readings"/>
+            <field eval="True" name="global"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+            <field name="groups" eval="[(4,ref('base.group_user'))]"/>
+        </record>
+
+        <record id="dispenser_record_rule" model="ir.rule">
+            <field name="name">Create Dispenser</field>
+            <field name="model_id" ref="model_create_dispenser"/>
+            <field eval="True" name="global"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+            <field name="groups" eval="[(4,ref('base.group_user'))]"/>
+        </record>
+
+        <record id="meter_record_rule" model="ir.rule">
+            <field name="name">Meter Management</field>
+            <field name="model_id" ref="model_metre_management"/>
+            <field eval="True" name="global"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+            <field name="groups" eval="[(4,ref('base.group_user'))]"/>
+        </record>
+
+        <record id="pump_config_record_rule" model="ir.rule">
+            <field name="name">Pump Config</field>
+            <field name="model_id" ref="model_pump_config"/>
+            <field eval="True" name="global"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+            <field name="groups" eval="[(4,ref('base.group_user'))]"/>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!--
+            TRUCKING REQUEST
+        -->
+        <!-- Truck Request Multi-company Rule -->
+        <record id="truck_request_comp_rule" model="ir.rule">
+            <field name="name">Truck Request Multi-company</field>
+            <field name="model_id" ref="model_truck_request" />
+            <field name="global" eval="True"/>
+            <field name="domain_force">
+                ['|', ('requester.id', '=', user.id), ('create_uid', '=', user.id), '|',
+                ('company_id', '=', False), ('company_id', 'child_of', [user.company_id.id])]
+            </field>
+        </record>
+
+        <!--
+            TRUCK ORDER
+        -->
+        <!-- Comp rule for truck outgoing order -->
+        <record model="ir.rule" id="truck_order_out_comp_rule">
+            <field name="name">Truck Out Order Multi-company</field>
+            <field name="model_id" ref="model_truck_order_out"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        </record>
+
+        <!-- Comp rule for truck incoming order -->
+        <record model="ir.rule" id="truck_order_in_comp_rule">
+            <field name="name">Truck In Order Multi-company</field>
+            <field name="model_id" ref="model_truck_order_in"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        </record>
+
+        <!--
+            PRICING TEMPLATE
+        -->
+        <!-- Pricing Template company rule -->
+        <record model="ir.rule" id="pricing_template_comp_rule">
+            <field name="name">Pricing Template multi-company</field>
+            <field name="model_id" ref="model_pricing_template"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        </record>
+
+    </data>
+</odoo>

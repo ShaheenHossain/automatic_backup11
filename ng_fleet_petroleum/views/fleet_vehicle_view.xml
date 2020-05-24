@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="fleet_form_view_extend" model="ir.ui.view">
+            <field name="name">fleet.form.view.extend</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+            <field name="model">fleet.vehicle</field>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button name="mobilize" string="Mobilize" type="object" class="oe_highlight" groups="" states=""/>
+                    <field name='state' widget="statusbar" nolabel="1" statusbar_visible="available,dispatched,at_depot,left_depot" />
+                </xpath>
+                <field name="driver_id" position="after">
+                    <label for="capacity" class="oe_inline"/>
+                    <div>
+                        <field name="capacity" class="oe_inline"/>
+                        <field name="product_uom_id" class="oe_inline"/>
+                    </div>
+                </field>
+                <xpath expr="//sheet//group[1]" position="after">
+                    <group>
+                        <group>
+                            <div class="oe_inline" col="4">
+                                <div class="oe_inline" col="2"><label for="is_warehouse"/></div>
+                                <div class="oe_inline" col="2"><field name="is_warehouse"/></div>
+                            </div>
+                        </group>
+
+                        <group>
+                            <field name="product_id" domain="[('is_petroleum', '=', True)]"/>
+                        </group>
+                    </group>
+                </xpath>
+                <xpath expr="//sheet" position="inside">
+                    <notebook>
+                        <page string="Reservations">
+                            <field name="reservation_ids" context="{'default_truck_id': active_id}"/>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

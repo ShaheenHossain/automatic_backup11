@@ -1,0 +1,16 @@
+<odoo>
+    <data>
+
+         <record model="ir.actions.act_window" id="station_customer_action">
+            <field name="name">Station Customers</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+             <field name="context" eval="{'search_default_customer': 1}"/>
+            <field name="view_mode">kanban,tree,form,pivot,graph</field>
+         </record>
+
+        <menuitem id="station_customer_menu" name="Customers" parent="station_sales_menu"
+                  action="station_customer_action" sequence="30"/>
+
+    </data>
+</odoo>

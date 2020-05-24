@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+<!-- Inherit Form View to Modify it -->
+ <record id="hr_salary_rule_form" model="ir.ui.view">
+ <field name="name">hr.salary.rule.form</field>
+    <field name="model">hr.salary.rule</field>
+     <field name="inherit_id" ref="hr_payroll.hr_salary_rule_form"/>
+     <field name="arch" type="xml">
+        <xpath expr="//field[@name='active']" position="after">
+            <field name="is_pension"/>
+             <field name="salary_rule_group"/>
+        </xpath>
+    </field>
+</record>
+
+
+
+
+
+<record id="salary_rule_category_action" model="ir.actions.act_window">
+    <field name="name">Contribution Category Group</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">contribution.rule.category</field>
+    <field name="view_mode">tree,form</field>
+    <field name="help" type="html">
+      <p class="oe_view_nocontent_create">
+        <!-- Add Text Here -->
+      </p><p>
+        <!-- More details about what a user can do with this object will be OK -->
+      </p>
+    </field>
+</record>
+
+<!-- This Menu Item must have a parent and an action -->
+<menuitem id="menu_salary_rule_category_id" name="Contribution Category Group" parent="hr_payroll.menu_hr_payroll_configuration" action="salary_rule_category_action" sequence="50"/>
+
+
+<record id="pension_line_action" model="ir.actions.act_window">
+    <field name="name">Pension Line</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">pension.contribution.line</field>
+    <field name="view_mode">tree,form</field>
+    <field name="help" type="html">
+      <p class="oe_view_nocontent_create">
+        <!-- Add Text Here -->
+      </p><p>
+      </p>
+    </field>
+</record>
+
+
+
+<record id="pension_form_view" model="ir.ui.view">
+    <field name="name">Pension Contribution</field>
+    <field name="model">pension.contribution</field>
+    <field name="arch" type="xml">
+        <form string="Pension Contribution">
+            <header>
+                <!-- Add button in your xml form -->
+          <button name="set_draft" string="Set To Draft" type="object"/>
+        <button name="print_report" string="Print Excel" type="object"/>
+        <button name="list_employee" type="object" string="Compute"  attrs="{'invisible': [('line_created','=',True)]}"/>/>
+                </header>
+            <sheet>
+                 <label for="name"/>
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                <group col="4" colspan="4">
+                    <field name="date_id"/>
+                    <field name="line_created"/>
+                </group>
+                <group col="4" colspan="4">
+                      <field name="employee_pension_id"/>
+                     <field name="employer_pension_id"/>
+                </group>
+                <notebook>
+                    <page string="Pension">
+                        <field name="pen_line">
+                            <tree>
+                                <field name="emp_id"/>
+                                 <field name="pension_pin"/>
+                                <field name="pfa"/>
+                                 <field name="employee_pension"/>
+                                 <field name="employer_pension"/>
+                                <field name="total"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+                <group>
+
+                </group>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+
+
+
+
+<record id="pension_action" model="ir.actions.act_window">
+    <field name="name">Pension Contribution</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">pension.contribution</field>
+    <field name="view_mode">tree,form</field>
+    <field name="help" type="html">
+      <p class="oe_view_nocontent_create">
+        <!-- Add Text Here -->
+      </p><p>
+      Create Pension Contributions
+      </p>
+    </field>
+</record>
+
+<menuitem id="menu_pension" name="Pension Contribution" parent="hr_payroll.menu_hr_payroll_root" action="pension_action" sequence=""/>
+
+
+
+
+    </data>
+</odoo>

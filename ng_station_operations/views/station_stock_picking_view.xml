@@ -1,0 +1,32 @@
+<odoo>
+    <data>
+
+        <record id="special_workflow_form" model="ir.ui.view">
+            <field name="name">stock.picking</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='location_id']" position="after">
+                    <field name="special_process" invisible="1"/>
+                    <field name="operation_type" invisible="1"/>
+                    <field name="deliver_to" attrs="{'required': [('operation_type', '=', 'Receipts')]}"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="quant_form" model="ir.ui.view">
+            <field name="name">stock.quant</field>
+            <field name="model">stock.quant</field>
+            <field name="inherit_id" ref="stock.view_stock_quant_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='location_id']" position="after">
+                    <field name="code"/>
+                </xpath>
+            </field>
+        </record>
+
+
+
+    </data>
+</odoo>

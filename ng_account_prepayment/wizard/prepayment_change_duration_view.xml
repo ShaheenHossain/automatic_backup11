@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record model="ir.ui.view" id="prepayment_modify_form">
+			<field name="name">wizard.prepayment.modify.form</field>
+			<field name="model">prepayment.modify</field>
+			<field name="arch" type="xml">
+				<form string="Modify Prepayment">
+					<group>
+						<separator string="Prepayment durations to modify"
+							colspan="4" />
+						<field name="name" />
+						<field name="method_number" />
+						<field name="method_end" />
+						<field name="method_period" />
+						<separator string="Notes" colspan="4" />
+						<field name="note" nolabel="1" colspan="4" />
+					</group>
+					<newline />
+					<footer>
+						<button name="modify" class="oe_highlight" string="Modify"
+							type="object" />
+						or
+						<button special="cancel" string="Cancel" class="oe_link" />
+					</footer>
+				</form>
+			</field>
+		</record>
+
+		<record id="action_prepayment_modify" model="ir.actions.act_window">
+			<field name="name">Modify Prepayment</field>
+			<field name="res_model">prepayment.modify</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="prepayment_modify_form" />
+			<field name="target">new</field>
+		</record>
+
+	</data>
+</odoo>

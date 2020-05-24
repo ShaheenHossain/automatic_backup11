@@ -1,0 +1,63 @@
+<odoo>
+    <data>
+        <record id="mrp_workcenter_view_cost_account" model="ir.ui.view">
+			<field name="name">mrp.workcenter.form</field>
+			<field name="model">mrp.workcenter</field>
+			<field name="inherit_id" ref="mrp.mrp_workcenter_view" />
+			<field name="arch" type="xml">
+				<xpath expr="//notebook/page/group[1]" position="after">
+					<group string="Costing Information">
+						<group>
+							<field name="labor_cost"/>
+							<field name="labor_cost_account_id" groups="analytic.group_analytic_accounting" />
+							<field name="labor_cost_id" />
+							<field name="electric_cost" />
+							<field name="electric_cost_account_id" groups="analytic.group_analytic_accounting" />
+							<field name="electric_cost_id" />
+							<field name="consumables_cost" />
+						</group>
+						<group>
+							<field name="consumables_cost_account_id" groups="analytic.group_analytic_accounting" />
+							<field name="consumables_cost_id" />
+							<field name="rent_cost" />
+							<field name="rent_cost_account_id" groups="analytic.group_analytic_accounting" />
+							<field name="rent_cost_id" />
+							<field name="other_cost" />
+							<field name="other_cost_account_id" groups="analytic.group_analytic_accounting" />
+							<field name="other_cost_id" />
+						</group>
+					</group>
+				</xpath>
+
+				<field name="code" position="after">
+					<field name="type" />
+					<field name="parent_id" attrs="{'readonly':[('type','=','view')]}" />
+					<field name="mrp_journal_id" attrs="{'readonly':[('type','=','view')]}" />
+				</field>
+
+                <field name="time_start" position="replace">
+                    <field name="time_start" widget="float_time" />
+                </field>
+
+                 <field name="time_stop" position="replace">
+                    <field name="time_stop" widget="float_time" />
+                </field>
+
+                <field name="time_efficiency" position="replace">
+                    <field name="time_efficiency" widget="float_time" />
+                </field>
+
+				<field name="name" position="after">
+					<field name="active" attrs="{'invisible':[('type','=','view')]}" />
+				</field>
+
+				<field name="note" position="after">
+					<div class="oe_chatter">
+						<field name="message_follower_ids" widget="mail_followers" />
+						<field name="message_ids" colspan="4" widget="mail_thread" nolabel="1" />
+					</div>
+				</field>
+			</field>
+		</record>
+    </data>
+</odoo>

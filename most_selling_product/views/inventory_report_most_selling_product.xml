@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="ir_most_selling_product">
+        <t t-call="web.html_container">
+            <t t-set="data_report_margin_top" t-value="12" />
+            <t t-set="data_report_header_spacing" t-value="9" />
+            <t t-set="data_report_dpi" t-value="110" />
+            <t t-call="web.internal_layout">
+                <div class="page">
+                    <h2 class="text-center">Top Selling Products</h2>
+                    <t t-foreach="get_company(data['form']['company_id'])"
+                        t-as="obj_company">
+                        <div class="row"
+                            style="border-width:1px;border-style:ridge;">
+                            <div class="col-xs-3 text-center">
+                                <strong>Company</strong>
+                                <p t-esc="obj_company['name']" />
+                            </div>
+                            <div class="col-xs-3 text-center">
+                                <strong>Warehouse</strong>
+                                <p
+                                    t-esc="data['form']['warehouse_ids'] and get_warehouse_name(data['form']['warehouse_ids']) or 'ALL'" />
+                            </div>
+                            <div class="col-xs-3 text-center">
+                                <strong>Date</strong>
+                                <p
+                                    t-esc="str((data['form']['start_date'])) + ' To ' + str((data['form']['end_date']))" />
+                            </div>
+                            <div class="col-xs-3 text-center">
+                                <strong>Top Products</strong>
+                                <p t-esc="data['form']['value']" />
+                            </div>
+                        </div>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="text-left"
+                                        style="color:#0F33C6;font-size: 17px;">
+                                        <strong t-esc="obj_company['name']" />
+                                    </th>
+                                    <th class="text-right">Sales(In Qty)</th>
+                                    <th class="text-center">UoM</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t
+                                    t-foreach="get_lines(data, obj_company['id']).items()"
+                                    t-as="warehouse">
+                                    <tr>
+                                        <td>
+                                            <strong
+                                                style="color:#827575;font-size: 17px;"
+                                                t-esc=" get_warehouse(warehouse[0])" />
+                                        </td>
+                                    </tr>
+                                    <t t-foreach="(warehouse[1])"
+                                        t-as="l">
+
+                                        <tr>
+                                            <td class="text-left">
+                                                <span
+                                                    t-esc="get_product_name(l['product_id'])" />
+                                            </td>
+                                            <td class="text-right">
+                                                <span
+                                                    t-esc="(l['product_qty_out'])" />
+                                            </td>
+                                            <td class="text-center">
+                                                <span
+                                                    t-esc="get_product_uom(l['product_id'])" />
+                                            </td>
+                                        </tr>
+                                    </t>
+
+                                    <!-- t t-if="warehouse[1]" -->
+                                    <tr class="border-black">
+                                        <p
+                                            t-esc="get_value_exist(warehouse[0],obj_company['id'])" />
+                                        <td class="text-right">
+                                            <strong
+                                                style="color:#827575;font-size: 17px;"
+                                                t-esc=" get_warehouse(warehouse[0])" />
+                                        </td>
+                                        <td class="text-right">
+                                            <strong
+                                                t-esc="round(total_out(), 2)" />
+                                        </td>
+                                        <td />
+                                    </tr>
+                                </t>
+                                <!-- /t -->
+                                <tr class="border-black">
+                                    <td class="text-right">
+                                        <strong
+                                            style="color:#4B524F;font-size: 19px;">Total Inventory
+                                        </strong>
+                                    </td>
+                                    <td class="text-right">
+                                        <strong
+                                            t-esc="round(total_vals(obj_company['id'])[2], 2)" />
+                                    </td>
+                                    <td />
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p style="page-break-before:always;">
+                        </p>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

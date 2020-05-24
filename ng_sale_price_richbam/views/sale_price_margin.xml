@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_tree_price_margin" model="ir.ui.view">
+            <field name="name">view.tree.price.margin</field>
+            <field name="model">sale.price.margin</field>
+            <field name="arch" type="xml">
+                <tree string="Sale Price Margin">
+                    <field name="name"/>
+                    <field name="product_category_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Price Margin Form View -->
+        <record id="view_form_price_margin" model="ir.ui.view">
+            <field name="name">view.form.price.margin</field>
+            <field name="model">sale.price.margin</field>
+            <field name="arch" type="xml">
+                <form string="Sales Price margin">
+                    <header>
+                        <button name="compute_sale_price" string="Compute Sale Price" type="object" class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                        <div class="col-xs-4 col-xs-offset-0">
+                            <label for="name"/>
+                            <h2>
+                                <field name="name"/>
+                            </h2>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="product_category_id"/>
+                            </group>
+                            <group>
+                                <field name="perc_margin"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Price Margin Form Action -->
+        <record id="action_price_margin" model="ir.actions.act_window">
+            <field name="name">Sales Price Margin</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.price.margin</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click here to add new record
+              </p><p>
+                Sales price margins are set on product categories. The percenatage set on the sales price margin is used
+                to compute the selling price for products in the category using the cost price.
+              </p>
+            </field>
+        </record>
+
+        <!-- Price Margin Form Action -->
+        <menuitem id="menu_sale_price_margin" name="Sale Price Margin" parent="sale.product_menu_catalog"
+                  action="action_price_margin" sequence="3"/>
+
+    </data>
+</odoo>

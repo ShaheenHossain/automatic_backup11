@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ng_hide_update_quantity_ng_hide_update_quantity,ng_hide_update_quantity.ng_hide_update_quantity,model_ng_hide_update_quantity_ng_hide_update_quantity,,1,0,0,0

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="invoice_form_view_inherit" model="ir.ui.view">
+            <field name="name">invoice.form.view.inherit</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//page[2]//group[2]//field[@name='name']" position="after">
+                    <!-- Add your fields or attributes here -->
+                    <field name="rel_in_order" string="Related fleet order"/>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

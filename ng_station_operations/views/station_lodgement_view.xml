@@ -1,0 +1,26 @@
+<odoo>
+    <data>
+
+        <record id="view_station_account_payment" model="ir.ui.view">
+            <field name="name">account.payment</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='payment_transaction_id']" position="after">
+                    <field name="return_id"/>
+                </xpath>
+            </field>
+         </record>
+
+        <record model="ir.actions.act_window" id="station_account_payment_action">
+            <field name="name">Station Lodgement</field>
+            <field name="res_model">account.payment</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form,pivot,graph</field>
+        </record>
+
+        <menuitem id="station_account_payment_id" name="Station Lodgement" parent="account.menu_finance_receivables_documents"
+                  action="station_account_payment_action" sequence="5"/>
+
+    </data>
+</odoo>

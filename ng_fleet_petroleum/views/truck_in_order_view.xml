@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Fleet Order Tree View -->
+        <record id="truck_order_in_view_tree" model="ir.ui.view">
+            <field name="name">truck.order.in.view.tree</field>
+            <field name="model">truck.order.in</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Truck Incoming Order">
+                    <field name="code"/>
+                    <field name="vendor_id"/>
+                    <field name="date_approved"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Fleet Order -->
+        <record id="truck_order_in_view_form" model="ir.ui.view">
+            <field name="name">truck.order.in.view.form</field>
+            <field name="model">truck.order.in</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Truck Incoming Order" class="oe_sale_order">
+                    <header>
+                        <button name="accept_quote" string="Accept Quote" states="draft" groups="" type="object" class="oe_highlight" />
+                        <button name="get_validate" string="Validate" states="open" groups="" type="object" class="btn btn-default" />
+                        <field name="state" widget="statusbar" />
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button type="object" name="action_view_vendor_invoice" class="oe_stat_button" icon="fa-pencil-square-o" attrs="">
+                                <field name="vendor_bill_count" widget="statinfo" string="Vendor Bills" help="Vendor Bills"/>
+                                <field name="vendor_bill_ids" invisible="1"/>
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <div>
+                                    <h4>Request for Quotation</h4>
+                                    <h2><field name="code" placeholder="New"/></h2>
+                                </div>
+                                <field name="vendor_id"/>
+                                <field name="company_id" invisible="True"/>
+                            </group>
+                            <group>
+                                <field name="date_approved" />
+                                <field name="currency_id" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Order Lines">
+                                <field name='order_lines' context="{'default_company_id': company_id}">
+                                    <tree string="Order Lines" editable="bottom">
+                                        <field name="partner_id"/>
+                                        <field name="description" />
+                                        <field name="qty_order" />
+                                        <field name="price_unit"/>
+                                        <field name="subtotal" options="{'currency_field': 'parent.currency_id'}" widget="monetary"/>
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                                    <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                        <label for="amount_total" />
+                                    </div>
+                                    <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Fleet order search view -->
+        <record id="truck_order_in_request_search" model="ir.ui.view">
+            <field name="name">truck.order.in.search.view</field>
+            <field name="model">truck.order.in</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="code"/>
+                    <field name="vendor_id"/>
+                    <field name="date_approved"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Action to Open fleet Incoming Order -->
+        <record id="action_fleet_in_order" model="ir.actions.act_window">
+            <field name="name">Fleet Incoming Order</field>
+            <field name="res_model">truck.order.in</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+        </record>
+
+        <!-- Menu for Incoming Fleet Quotations -->
+        <menuitem id="fleet_in_order_menu" name="Incoming Orders" parent="fleet.menu_root" sequence="1"
+                  groups="ng_fleet_petroleum.truck_requester_hq,ng_fleet_petroleum.truck_user_station"/>
+
+        <!-- Quotation Menu -->
+        <menuitem id="quotation_in_menu" name="Incoming Quotations" parent="fleet_in_order_menu" sequence="1"
+                  action="action_fleet_in_order" />
+    </data>
+</odoo>

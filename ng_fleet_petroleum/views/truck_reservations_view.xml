@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Truck reservations tree view -->
+        <record id="truck_reservation_tree_view" model="ir.ui.view">
+            <field name="name">truck.reservation.tree.view</field>
+            <field name="model">reservations.truck</field>
+            <field name="arch" type="xml">
+                <tree string="Truck reservations">
+                    <field name="date_due"/>
+                    <field name="date_performed"/>
+                    <field name="truck_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Truck reservations form view -->
+        <record id="truck_reservation_form_view" model="ir.ui.view">
+            <field name="name">truck.reservation.form.view</field>
+            <field name="model">reservations.truck</field>
+            <field name="arch" type="xml">
+                <form string="Truck reservations">
+                    <group>
+                        <field name="date_due"/>
+                        <field name="date_performed"/>
+                        <field name="truck_id"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

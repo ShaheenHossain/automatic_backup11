@@ -1,0 +1,124 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="view_attendant_return_tree">
+            <field name="name">Attendant Return</field>
+            <field name="model">attendant.return</field>
+            <field name="arch" type="xml">
+                <tree string="Attendant Return">
+                    <field name="name" attrs="{'invisible':[('state','in',('draft'))]}"/>
+                    <field name="state"/>
+                    <field name="journal_id"/>
+                    <field name="all_amount"/>
+                    <field name="remitted_bank"/>
+                    <field name="received_date" attrs="{'invisible':[('state','in',('draft'))]}"/>
+                    <field name="remitted_date" attrs="{'invisible':[('state','in',('draft', 'received'))]}"/>
+                    <field name="approved_date" attrs="{'invisible':[('state','in',('draft', 'received', 'remitted'))]}"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Check Box to make Vehicle a Product Starts-->
+         <record id="view_attendant_return_form" model="ir.ui.view">
+            <field name="name">Attendant Return</field>
+            <field name="model">attendant.return</field>
+            <field name="arch" type="xml">
+                <form string="Attendant Return">
+                    <header>
+
+                        <button name="action_received" type="object" states="draft" string="Received"
+                                class="oe_highlight"/>
+
+                        <button name="button_draft" states="received" string="Draft" type="object" class="oe_highlight"/>
+
+                        <button name="action_remitted" type="object" states="received" string="Remit"
+                                class="oe_highlight" />
+
+                        <field name="state" widget="statusbar" class="oe_highlight" statusbar_visible="draft,received,remitted,approved"/>
+                    </header>
+
+                    <sheet>
+                        <h2><field name="name" attrs="{'invisible':[('state','in',('draft'))]}"/></h2>
+                        <group>
+                            <group>
+                                <field name="journal_id" attrs="{'readonly': [('state', 'in', ('approved'))]}"/>
+                                <field name="received_date" attrs="{'invisible':[('state','in',('draft'))]}"/>
+                                <field name="all_amount" invisible="1"/>
+
+                            </group>
+                            <group>
+                                <field name="company_id" attrs="{'readonly': [('state', 'in', ('approved'))]}"/>
+                                <field name="remitted_bank" attrs="{'invisible':[('state','not in',('received', 'remitted', 'approved'))], 'required': [('state', 'in', ('remitted', 'received'))], 'readonly': [('state', 'in', ('approved'))]}"/>
+                                <field name="mirror_bank" invisible="1"/>
+                                <field name="remitted_date" attrs="{'invisible':[('state','in',('draft', 'received'))]}"/>
+                                <field name="approved_date" attrs="{'invisible':[('state','in',('draft', 'received', 'remitted'))]}"/>
+                            </group>
+                        </group>
+
+                         <notebook>
+                             <page string="Attendant Returns">
+                                <field name="attendant_return_id">
+                                     <tree editable="bottom">
+                                        <field name="name"/>
+                                        <field name="date"/>
+                                        <field name="amount_returned"/>
+                                        <field name="received_by"/>
+                                    </tree>
+                                    <form string="Attendant Returns">
+                                        <sheet>
+                                            <group>
+                                                <group>
+                                                    <field name="name"/>
+                                                </group>
+                                                <group>
+                                                    <field name="date"/>
+                                                </group>
+                                                <group>
+                                                    <field name="amount_returned"/>
+                                                </group>
+                                                <group>
+                                                    <field name="received_by"/>
+                                                </group>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+
+                        </notebook>
+
+                    </sheet>
+<!--
+                     <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+-->
+                </form>
+            </field>
+         </record>
+
+        <record model="ir.actions.act_window" id="attendant_return_action">
+            <field name="name">Attendant Return</field>
+            <field name="res_model">attendant.return</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_attendant_return" name="Attendant Return" parent="station_sales_menu"
+                  action="attendant_return_action" sequence="15"/>
+
+    </data>
+
+    <data noupdate="1">
+        <record id="sequence_return_group" model="ir.sequence">
+            <field name="name">Attendant Return</field>
+            <field name="code">attendant.return</field>
+            <field name="prefix">RETURNS/</field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="False"/>
+            <!--<field name="number_next">1</field>-->
+            <!--<field name="number_increment">1</field>-->
+        </record>
+    </data>
+</odoo>

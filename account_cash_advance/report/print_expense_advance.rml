@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<document filename="Expense Advance.pdf">
+  <template pageSize="(595.0,842.0)" title="Expense Advance" author="Mattobell" allowSplitting="20">
+    <pageTemplate id="first">
+      <frame id="first" x1="57.0" y1="57.0" width="481" height="728"/>
+    </pageTemplate>
+  </template>
+  <stylesheet>
+    <blockTableStyle id="Standard_Outline">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <blockTableStyle id="Table1">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <initialize>
+      <paraStyle name="all" alignment="justify"/>
+    </initialize>
+    <paraStyle name="P1" fontName="Helvetica"/>
+    <paraStyle name="P2" fontName="Helvetica" alignment="LEFT"/>
+    <paraStyle name="P3" fontName="Helvetica" alignment="CENTER"/>
+    <paraStyle name="P1" fontSize="9.0" leading="11" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="Standard" fontName="Helvetica"/>
+    <paraStyle name="Heading" alignment="CENTER" fontName="Helvetica" fontSize="14.0" leading="17" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="Text_20_body" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="List" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="Caption" fontName="Helvetica" fontSize="12.0" leading="15" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="Index" fontName="Helvetica"/>
+    <paraStyle name="Table_20_Contents" fontName="Helvetica"/>
+    <paraStyle name="Table_20_Heading" fontName="Helvetica" alignment="CENTER"/>
+    <images/>
+  </stylesheet>
+  <story>
+    <para style="P1">[[repeatIn(objects,'advance')]]</para>
+    <para style="P1">
+      <font color="white"> </font>
+    </para>
+    <para style="Heading">
+      Employee Expense Advance
+    </para>
+    <blockTable colWidths="240.0,240.0" style="Table1">
+      <tr>
+        <td>
+          <para style="P1"><b>Employee Name: </b>[[ advance.emp_id.name ]]</para>
+          <para style="P1">
+            <font color="white"> </font>
+          </para>
+          <para style="P1">
+            <font color="white"> </font>
+          </para>
+        </td>
+        <td>
+          <para style="P1"><b>Request Date: </b>[[ formatLang (advance.date, date=True) ]]</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P1"><b>Description:</b> [[ advance.name ]]</para>
+          <para style="P1">
+            <font color="white"> </font>
+          </para>
+          <para style="P1">
+            <font color="white"> </font>
+          </para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P1"><b>Amount:</b> [[ formatLang(advance.advance,digits=get_digits(dp='Account')) ]]</para>
+          <para style="P1">
+            <font color="white"> </font>
+          </para>
+        </td>
+        <td>
+          <para style="P1"><b>Currency: </b>[[ advance.currency_id.name ]]</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P1"><b>Purpose:</b>[[ advance.notes ]]</para>
+          <para style="P1">
+            <font color="white"> </font>
+          </para>
+          <para style="P1">
+            <font color="white"> </font>
+          </para>
+          <para style="P1">
+            <font color="white"> </font>
+          </para>
+          <para style="P1">
+            <font color="white"> </font>
+          </para>
+          <para style="P1">
+            <font color="white"> </font>
+          </para>
+          <para style="P1">
+            <font color="white"> </font>
+          </para>
+          <para style="P1">
+            <font color="white"> </font>
+          </para>
+          <para style="P1">
+            <font color="white"> </font>
+          </para>
+          <para style="P1">
+            <font color="white"> </font>
+          </para>
+          <para style="P1">
+            <font color="white"> </font>
+          </para>
+          <para style="P1">
+            <font color="white"> </font>
+          </para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P3">[[advance.state == 'approve' and 'Approved' or advance.state == 'paid' and 'Paid' or 'Unapproved']]</para>
+          <para style="P3">___________________________</para>
+          <para style="P3">
+            <b>Status</b>
+          </para>
+        </td>
+        <td>
+          <para style="P3">[[advance.manager_id and advance.manager_id.name or '']]</para>
+          <para style="P3">___________________________</para>
+          <para style="P3">
+            <b>Approved By</b>
+          </para>
+        </td>
+      </tr>
+    </blockTable>
+    <para style="P1">
+      <font color="white"> </font>
+    </para>
+  </story>
+</document>

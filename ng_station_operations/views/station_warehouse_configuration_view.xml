@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+
+         <record model="ir.actions.act_window" id="station_warehouse_action">
+            <field name="name">Stations</field>
+            <field name="res_model">stock.warehouse</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="station_warehouse_action_id" name="Stations" parent="station_config_menu" action="station_warehouse_action" sequence="5"/>
+
+
+    </data>
+</odoo>

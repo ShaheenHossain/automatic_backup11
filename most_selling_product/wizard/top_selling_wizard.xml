@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<record id="view_top_selling" model="ir.ui.view">
+			<field name="name">Top Selling Products</field>
+			<field name="model">top.selling.report</field>
+			<field name="arch" type="xml">
+				<form string="Inventory" version="7.0">
+					<group string="Company">
+						<field name="company_id" string="Company" widget="selection" options="{'no_create_edit': True, 'no_create': True}"/>
+						<label string="(If you do not select company it will take all companies)"
+							colspan="4"/>
+					</group>
+					<group string="Warehouses">
+						<field name="warehouse_ids" widget="many2many_tags" string="Warehouses" options="{'no_create_edit': True, 'no_create': True}"/>
+						<label
+							string="(If you do not select warehouse it will take all warehouses)"
+							colspan="4"/>
+					</group>
+					<group />
+					<group>
+						<field name="start_date" />
+						<field name="end_date" />
+						<field name="value" />
+						<field name="sort_order" invisible="1"/>
+						<field name="include_zero" invisible="1"/>
+
+					</group>
+					<footer>
+						<button name="print_report" string="Print" type="object"
+							class="oe_highlight" />
+						or
+						<button string="Cancel" class="oe_link" special="cancel" />
+					</footer>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_top_selling">
+			<field name="name">Top Selling Products</field>
+			<field name="res_model">top.selling.report</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="view_top_selling" />
+			<field name="target">new</field>
+		</record>
+
+	</data>
+</openerp>

@@ -1,0 +1,17 @@
+<odoo>
+    <data>
+
+
+        <!-- Top Menu -->
+        <menuitem id="station_operation_top_menu" name="Station Operations" sequence="10"
+                  web_icon="ng_station_operations,static/description/icon.png"
+                  groups="ng_station_operations.group_manager,ng_station_operations.group_discharge_menu"/>
+        <!--Side Bar  -->
+        <menuitem id="station_operation" name="Dashboard" parent="station_operation_top_menu" sequence="0"/>
+
+
+
+
+
+    </data>
+</odoo>

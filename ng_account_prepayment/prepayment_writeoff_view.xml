@@ -1,0 +1,112 @@
+<odoo>
+	<data>
+
+		<!-- writeoffs -->
+
+		<record model="ir.ui.view" id="view_account_prepayment_writeoff_form">
+			<field name="name">prepayment.writeoff.form</field>
+			<field name="model">prepayment.writeoff</field>
+			<field name="arch" type="xml">
+				<form string="Prepayment WriteOff">
+					<sheet>
+						<header>
+							<button name="validate" class="oe_highlight" states="draft" string="Confirm" type="object" />
+							<button name="approve" class="oe_highlight" states="open" string="Approve" type="object" />
+							<button name="set_to_draft" states="reject" string="Set to Draft" type="object" />
+							<button name="set_to_close" states="open" string="Reject" type="object" />
+							<button name="set_to_cancel" states="draft" string="Cancel" type="object" />
+							<button name="set_to_draft" states="approve" string="Set to Draft" type="object" />
+							<button name="set_to_draft_app" states="cancel" string="Set to Draft" type="object" />
+							<button name="done" string="Done" class="oe_highlight" type="object" invisible="1" />
+							<button name="create_move_write" class="oe_highlight" states="approve" string="Create Write-Off Entry" type="object" />
+							<field name="state" readonly="1" widget="statusbar" colspan="2" />
+						</header>
+						<group>
+							<field name="prepayment_id" on_change="onchange_prepayment(prepayment_id)" />
+							<field name="name" />
+							<field name="date" />
+							<field name="purchase_value" />
+							<field name="accumulated_value" />
+							<field name="value_residual" />
+							<field name="user_id" />
+							<field name="company_id" widget="selection" groups="base.group_multi_company" />
+							<separator string="Accounting Information" colspan="4" />
+							<field name="account_prepayment_id" />
+							<field name="write_account"     />
+							<field name="write_journal_id" />
+							<field name="move_id1" />
+						</group>
+					</sheet>
+					<div class="oe_chatter">
+						<field name="message_follower_ids" widget="mail_followers" />
+						<field name="message_ids" widget="mail_thread" />
+					</div>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_account_prepayment_writeoff_tree">
+			<field name="name">prepayment.writeoff.tree</field>
+			<field name="model">prepayment.writeoff</field>
+			<field name="arch" type="xml">
+				<tree string="Prepayment WriteOff">
+					<field name="name" />
+					<field name="prepayment_id" />
+					<field name="date" />
+					<field name="purchase_value" />
+					<field name="accumulated_value" />
+					<field name="user_id" invisible="1" />
+					<field name="company_id" widget="selection" groups="base.group_multi_company" />
+					<field name="state" />
+					<button name="approve" states="open" string="Approve" type="object" icon="gtk-apply" />
+					<button name="set_to_close" states="open" string="Reject" type="object" icon="gtk-close" />
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_account_prepayment_writeoff_search">
+			<field name="name">prepayment.writeoff.search</field>
+			<field name="model">prepayment.writeoff</field>
+			<field name="arch" type="xml">
+				<search string="Search Prepayment WriteOff">
+					<filter icon="terp-check" domain="[('state','=','draft')]" string="To Confirm" />
+					<filter icon="terp-camera_test" domain="[('state','=','open')]" string="To Approve" name="approve" />
+					<filter icon="terp-camera_test" domain="[('state','=','approve')]" string="Approved" name="validated" />
+					<separator orientation="vertical" />
+					<filter icon="terp-go-year" name="year" string="Year" domain="[('date','&gt;=',time.strftime('%%Y-1-1')),('date','&lt;=',time.strftime('%%Y-12-31'))]" />
+					<separator orientation="vertical" />
+					<field name="name" />
+					<field name="prepayment_id" />
+					<field name="date" />
+					<field name="user_id">
+						<filter icon="terp-personal" name="my_repairs" domain="[('user_id','=', uid)]" help="My writeoffs" />
+					</field>
+					<newline />
+					<field name="state" />
+					<field name="company_id" widget="selection" groups="base.group_multi_company" />
+					<newline />
+					<group expand="0" string="Group By...">
+						<filter name="group_date_from" string="Date" icon="terp-go-month" domain="[]" context="{'group_by':'date'}" />
+						<separator orientation="vertical" />
+						<filter name="group_employee" string="User" icon="terp-personal" domain="[]" context="{'group_by':'user_id'}" />
+						<filter name="group_category" string="prepayment" icon="terp-stock_symbol-selection" domain="[]" context="{'group_by':'prepayment_id'}" />
+						<separator orientation="vertical" />
+						<filter string="State" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'state'}" />
+						<filter string="Company" icon="terp-go-home" domain="[]" context="{'group_by':'company_id'}" />
+					</group>
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_account_prepayment_writeoff1">
+			<field name="name">Prepayment Write-offs</field>
+			<field name="res_model">prepayment.writeoff</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<menuitem parent="menu_finance_prepayments" sequence="10000"
+			id="menu_action_account_prepayment_writeoff_form" action="action_account_prepayment_writeoff1" />
+
+	</data>
+</odoo>

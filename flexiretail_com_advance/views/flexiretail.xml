@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- vim:fdn=3:-->
+<odoo>
+	<data>
+        <template id="index" name="flexiretail_com_advance index" inherit_id="point_of_sale.index">
+            <xpath expr="." position="inside">
+
+                <t t-call="flexiretail_com_advance.assets_gmaps"/>
+
+                <script type="text/javascript" src="/flexiretail_com_advance/static/src/js/screens.js"></script>
+                <script type="text/javascript" src="/flexiretail_com_advance/static/src/js/models.js"></script>
+                <script type="text/javascript" src="/flexiretail_com_advance/static/src/js/chrome.js"></script>
+                <script type="text/javascript" src="/flexiretail_com_advance/static/src/js/gui.js"></script>
+                <script type="text/javascript" src="/flexiretail_com_advance/static/src/js/db.js"></script>
+                <script type="text/javascript" src="/flexiretail_com_advance/static/src/js/popup.js"></script>
+                <script type="text/javascript" src="/flexiretail_com_advance/static/src/js/keyboard_shortcut.js"></script>
+
+                <link rel="stylesheet" type="text/css" href="/flexiretail_com_advance/static/src/css/pos_theme.css"/>
+                <link rel="stylesheet" type="text/css" href="/flexiretail_com_advance/static/src/css/multi_terminal_lock.css"/>
+                <link rel="stylesheet" type="text/css" href="/flexiretail_com_advance/static/src/css/pos.css"/>
+                <link rel="stylesheet" type="text/css" href="/flexiretail_com_advance/static/src/css/order_screen.css"/>
+                <link rel="stylesheet" type="text/css" href="/flexiretail_com_advance/static/src/css/datepicker.css"/>
+                <link rel="stylesheet" type="text/css" href="/flexiretail_com_advance/static/src/css/login.css"/>
+                <link rel="stylesheet" type="text/css" href="/flexiretail_com_advance/static/src/css/client_screen.css"/>
+                <link rel="stylesheet" type="text/css" href="/flexiretail_com_advance/static/src/css/products.css"/>
+                <link rel="stylesheet" type="text/css" href="/flexiretail_com_advance/static/src/css/simple-sidebar.css"/>
+                <link rel="stylesheet" type="text/css" href="/flexiretail_com_advance/static/src/css/jquery.timepicker.css"/>
+                <link rel="stylesheet" type="text/css" href="/flexiretail_com_advance/static/src/css/graph_screen.css"/>
+                <link rel="stylesheet" type="text/css" href="/flexiretail_com_advance/static/src/css/gift_card_screen.css"/>
+                <link rel="stylesheet" type="text/css" href="/flexiretail_com_advance/static/src/css/stock_picking_screen.css"/>
+                 <!-- <link rel="stylesheet" type="text/css" href="/flexiretail_com_advance/static/src/css/green_orange.css"/> -->
+                 <!-- <link rel="stylesheet" type="text/css" href="/flexiretail_com_advance/static/src/css/orange_pista.css"/> -->
+        <!--     <link rel="stylesheet" type="text/css" href="/flexiretail_com_advance/static/src/css/blue_yellow.css"/> -->
+                <!-- <link rel="stylesheet" type="text/css" href="/flexiretail_com_advance/static/src/css/salon_theme.css"/>  -->
+
+               
+
+
+				<t t-call="flexiretail_com_advance.assets_themes"/>
+				
+                <script type="text/javascript" src="/flexiretail_com_advance/static/src/js/lib/jquery.simplePagination.js"></script>
+                <script type="text/javascript" src="/flexiretail_com_advance/static/src/js/lib/jquery-barcode.js"></script>
+                <script type="text/javascript" src="/flexiretail_com_advance/static/src/js/lib/markerclusterer.js"></script>
+                <script type="text/javascript" src="/flexiretail_com_advance/static/src/js/auto_complete_address.js"></script>
+                <script type="text/javascript" src="/flexiretail_com_advance/static/src/js/lib/jquery.timepicker.js"></script>
+                <script type="text/javascript" src="/flexiretail_com_advance/static/src/js/lib/canvasjs.min.js"></script>
+
+            </xpath>
+        </template>
+
+        <template id="flexiretail_com_advance.assets_gmaps">
+            <t t-set="google_maps_api_key" t-value="request.env['ir.config_parameter'].sudo().get_param('google_api_key')"/>
+            <script type="text/javascript" src="/flexiretail_com_advance/static/src/js/lib/markerclusterer.js"/>
+            <script t-att-async="1" t-att-defer="1" t-attf-src="//maps.googleapis.com/maps/api/js?key=#{google_maps_api_key}&amp;libraries=places"></script>
+        </template>
+
+		<template id="flexiretail_com_advance.assets_themes">
+			<t t-set="pos_theme_selector" t-value="request.env['ir.config_parameter'].sudo().get_param('theme_selector')"/>
+            <t t-if="pos_theme_selector == False">
+            	<link rel="stylesheet" type="text/css" href="/flexiretail_com_advance/static/src/css/blue_yellow.css"/>
+            </t>
+            <t t-if="pos_theme_selector == 'green_orange'">
+            	<link rel="stylesheet" type="text/css" href="/flexiretail_com_advance/static/src/css/green_orange.css"/>
+            </t>
+            <t t-if="pos_theme_selector == 'multi_color'">
+                <link rel="stylesheet" type="text/css" href="/flexiretail_com_advance/static/src/css/multi_color.css"/>
+            </t>
+            
+		</template>
+
+        <template id="acespritech_assets_backend" name="map assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/flexiretail_com_advance/static/src/js/view_manager.js"></script>
+            </xpath>
+        </template>
+
+	</data>
+</odoo>

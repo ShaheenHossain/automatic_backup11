@@ -1,0 +1,91 @@
+<odoo>
+    <data>
+        <template id="cash_advance_report_qweb">
+            <style>
+            .hide_top{
+                border-top:hidden;
+            }
+            .td_approve{
+                width:15%;
+                border-top:1px solid black;
+                text-align:center;
+            }
+            .td_w{
+                width:10%;
+                border-top:hidden;
+            }
+            </style>
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <span style="text-align:center;"><h2>Employee Expense Advance</h2></span>
+                            <table class="table" style="font-size:16px;">
+                                <tr class="hide_top">
+                                    <td>
+                                        <span><b>Employee Name: </b></span>
+                                        <span><t t-esc="o.emp_id.name"/></span>
+                                    </td>
+                                    <td></td>
+                                    <td>
+                                        <span><b>Request Date: </b></span>
+<!--                                        <span t-esc="formatLang(o.date, date=True)"/-->
+                                        <span t-esc="o.date"/>
+                                    </td>
+                                </tr>
+                                <tr class="hide_top">
+                                    <td>
+                                        <span><b>Description:</b></span>
+                                        <span><t t-esc="o.name"/></span>
+                                    </td>
+                                </tr>
+                                <tr class="hide_top">
+                                    <td>
+                                        <span><b>Amount:</b></span>
+<!--                                        <span><t t-esc="formatLang(o.advance,digits=get_digits(dp='Account'))"/></span>-->
+                                        <span><t t-esc="o.advance"/></span>
+                                    </td>
+                                    <td></td>
+                                    <td>
+                                        <span><b>Currency: </b></span>
+                                        <span><t t-esc="o.currency_id.name"/></span>
+                                    </td>
+                                </tr>
+                                <tr class="hide_top">
+                                    <td>
+                                        <span><b>Purpose:</b></span>
+                                        <span><t t-esc="o.notes"/></span>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table class="table" style="font-size:16px;">
+                                <tr class="hide_top">
+                                    <td class="td_w"></td>
+                                    <td style="text-align:center;">
+                                        <b><t t-esc="o.state == 'approve' and 'Approved' or o.state == 'paid' and 'Paid' or 'Unapproved'"/></b>
+                                    </td>
+                                    <td></td>
+                                    <td>
+                                        <t t-esc="o.manager_id and o.manager_id.name or ''"/>
+                                    </td>
+                                    <td class="td_w"></td>
+                                </tr>
+                                <tr>
+                                    <td class="td_w" style="border-top:hidden;"> </td>
+                                    <td class="td_approve" style="border-top:1px solid black;">
+                                        <span><b>Status</b></span>
+                                    </td>
+                                    <td style="border-top:hidden;"></td>
+                                    <td class="td_approve" style="border-top:1px solid black;">
+                                        <span><b>Approved By</b></span>
+                                    </td>
+                                    <td width="15%" style="border-top:hidden;"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

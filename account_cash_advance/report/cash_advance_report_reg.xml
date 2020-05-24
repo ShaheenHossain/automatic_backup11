@@ -1,0 +1,16 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<odoo>
+    <data>
+    
+        <report
+            auto="False"
+            id="cash_advance_report_reg"
+            model="cash.advance"
+            report_type="qweb-pdf"
+            string="Print Expense Advance"
+            file = "account_cash_advance.cash_advance_report_qweb"
+            name ="account_cash_advance.cash_advance_report_qweb" 
+            />
+
+    </data>
+</odoo>

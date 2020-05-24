@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="product_product_combo_items_form" model="ir.ui.view">
+            <field name="name">product.template.form.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='options']" position="after">
+                    <div name="multi_unit_of_measure" groups="point_of_sale.group_pos_manager">
+                        <div>
+                            <field name="multi_uom"/>
+                            <label for="multi_uom" string="Multi unit of measure"/>
+                        </div>
+                    </div>
+                </xpath>
+                <xpath expr="//page[2]" position="inside">
+                    <div name="pos_multi_unit_of_measure" attrs="{'invisible': [('multi_uom', '=', False)]}" groups="point_of_sale.group_pos_manager">
+                        <separator string="POS multi unit measure"/>
+                        <field name="price_uom_ids">
+                            <tree string="Unit of measure" editable="1">
+                                <field name="uom_id"/>
+                                <field name="price"/>
+                            </tree>
+                        </field>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
+

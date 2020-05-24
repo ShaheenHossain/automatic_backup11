@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<odoo>
+	<data>
+
+		<record model="ir.ui.view" id="view_account_invoice_prepayment_form">
+			<field name="name">account.invoice.line.form</field>
+			<field name="model">account.invoice.line</field>
+			<field name="inherit_id" ref="account.view_invoice_line_form" />
+			<field name="arch" type="xml">
+				<field name="account_id" position="before">
+					<field name="prepayment_category_id" on_change="onchange_pcat(prepayment_category_id)" />
+				</field>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_account_invoice_prepayment_form_check">
+			<field name="name">account.invoice.line.form</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_supplier_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='name']" position="after">
+					<field name="prepayment_category_id" on_change="onchange_pcat(prepayment_category_id)" />
+				</xpath>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_account_line_po_prepayment_form">
+			<field name="name">po.line.prepayment.form</field>
+			<field name="model">purchase.order.line</field>
+			<field name="inherit_id" ref="purchase.purchase_order_line_form2" />
+			<field name="arch" type="xml">
+				<field name="price_unit" position="after">
+					<field name="pre_category_id" />
+				</field>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_account_line_po_prepayment_form_tree_test">
+			<field name="name">purchase.order.form</field>
+			<field name="model">purchase.order</field>
+			<field name="inherit_id" ref="purchase.purchase_order_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='order_line']/tree/field[@name='product_qty']" position="after">
+					<field name="pre_category_id" />
+				</xpath>
+			</field>
+		</record>
+
+	</data>
+</odoo>

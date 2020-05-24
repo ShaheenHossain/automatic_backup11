@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_truck_order_out_fleet_user,access.truck.order.out.fleet.user,ng_fleet_petroleum.model_truck_order_out,fleet.fleet_group_user,1,1,1,1
+access_truck_order_in_fleet_user,access.truck.order.in.fleet.user,ng_fleet_petroleum.model_truck_order_in,fleet.fleet_group_user,1,1,1,1
+access_truck_order_out_line_fleet_user,access.truck.order.out.line.fleet.user,ng_fleet_petroleum.model_truck_order_out_line,fleet.fleet_group_user,1,1,1,1
+access_truck_order_in_line_fleet_user,access.truck.order.in.line.fleet.user,ng_fleet_petroleum.model_truck_order_in_line,fleet.fleet_group_user,1,1,1,1
+access_truck_request_fleet_user,access.truck.request.fleet.user,ng_fleet_petroleum.model_truck_request,fleet.fleet_group_user,1,1,1,1
+access_truck_reservations,access.truck.reservations,ng_fleet_petroleum.model_reservations_truck,,1,1,1,1
+access_station_charges,access_station_charges,model_station_charges,,1,0,0,0
+access_station_charges_requester,access_station_charges_requester,model_station_charges,ng_fleet_petroleum.truck_requester_hq,1,1,1,1
+access_station_charges_line,access_station_charges_line,model_station_charges_line,,1,1,1,1
+access_truck_request_line,access_truck_request_line,model_truck_request_line,,1,1,1,1
+access_pricing_template,access_pricing_template,model_pricing_template,,1,0,0,0
+access_pricing_template_fleet_manager,access_pricing_template_truck_manager,model_pricing_template,ng_fleet_petroleum.truck_manager,1,1,1,1
+access_account_move_user,access_account_move_user,account.model_account_move,,1,0,0,0
+access_account_move_line_user,access_account_move_line_user,account.model_account_move_line,,1,0,0,0

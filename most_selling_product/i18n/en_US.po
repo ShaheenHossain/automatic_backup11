@@ -1,0 +1,537 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* most_selling_product
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-12-02 20:40+0000\n"
+"PO-Revision-Date: 2017-12-02 20:40+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: most_selling_product
+#: model:mail.template,body_html:most_selling_product.email_template_autotsp
+msgid "\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"\n"
+"    <p>Hello,</p>\n"
+"    \n"
+"    <p>Please find attached top selling products report.</p>\n"
+"\n"
+"    <p>If you have any question, do not hesitate to contact us.</p>\n"
+"    <p>Thank you for choosing ${user.company_id.name or 'us'}!</p>\n"
+"    <br/>\n"
+"    <br/>\n"
+"    <div style=\"width: 375px; margin: 0px; padding: 0px; background-color: #A24689; border-top-left-radius: 5px 5px; border-top-right-radius: 5px 5px; background-repeat: repeat no-repeat;\">\n"
+"        <h3 style=\"margin: 0px; padding: 2px 14px; font-size: 12px; color: #DDD;\">\n"
+"            <strong style=\"text-transform:uppercase;\">${user.company_id.name}</strong></h3>\n"
+"    </div>\n"
+"    <div style=\"width: 347px; margin: 0px; padding: 5px 14px; line-height: 16px; background-color: #D8D8D8;\">\n"
+"        <span style=\"color: #222; margin-bottom: 5px; display: block; \">\n"
+"        % if user.company_id.street:\n"
+"            ${user.company_id.street}<br/>\n"
+"        % endif\n"
+"        % if user.company_id.street2:\n"
+"            ${user.company_id.street2}<br/>\n"
+"        % endif\n"
+"        % if user.company_id.city or user.company_id.zip:\n"
+"            ${user.company_id.zip} ${user.company_id.city}<br/>\n"
+"        % endif\n"
+"        % if user.company_id.country_id:\n"
+"            ${user.company_id.state_id and ('%s, ' % user.company_id.state_id.name) or ''} ${user.company_id.country_id.name or ''}<br/>\n"
+"        % endif\n"
+"        </span>\n"
+"        % if user.company_id.phone:\n"
+"            <div style=\"margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; \">\n"
+"                Phone:&nbsp; ${user.company_id.phone}\n"
+"            </div>\n"
+"        % endif\n"
+"        % if user.company_id.website:\n"
+"            <div>\n"
+"                Web :&nbsp;<a href=\"${user.company_id.website}\">${user.company_id.website}</a>\n"
+"            </div>\n"
+"        %endif\n"
+"        <p></p>\n"
+"    </div>\n"
+"</div>\n"
+"            "
+msgstr "\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"\n"
+"    <p>Hello,</p>\n"
+"    \n"
+"    <p>Please find attached top selling products report.</p>\n"
+"\n"
+"    <p>If you have any question, do not hesitate to contact us.</p>\n"
+"    <p>Thank you for choosing ${user.company_id.name or 'us'}!</p>\n"
+"    <br/>\n"
+"    <br/>\n"
+"    <div style=\"width: 375px; margin: 0px; padding: 0px; background-color: #A24689; border-top-left-radius: 5px 5px; border-top-right-radius: 5px 5px; background-repeat: repeat no-repeat;\">\n"
+"        <h3 style=\"margin: 0px; padding: 2px 14px; font-size: 12px; color: #DDD;\">\n"
+"            <strong style=\"text-transform:uppercase;\">${user.company_id.name}</strong></h3>\n"
+"    </div>\n"
+"    <div style=\"width: 347px; margin: 0px; padding: 5px 14px; line-height: 16px; background-color: #D8D8D8;\">\n"
+"        <span style=\"color: #222; margin-bottom: 5px; display: block; \">\n"
+"        % if user.company_id.street:\n"
+"            ${user.company_id.street}<br/>\n"
+"        % endif\n"
+"        % if user.company_id.street2:\n"
+"            ${user.company_id.street2}<br/>\n"
+"        % endif\n"
+"        % if user.company_id.city or user.company_id.zip:\n"
+"            ${user.company_id.zip} ${user.company_id.city}<br/>\n"
+"        % endif\n"
+"        % if user.company_id.country_id:\n"
+"            ${user.company_id.state_id and ('%s, ' % user.company_id.state_id.name) or ''} ${user.company_id.country_id.name or ''}<br/>\n"
+"        % endif\n"
+"        </span>\n"
+"        % if user.company_id.phone:\n"
+"            <div style=\"margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; \">\n"
+"                Phone:&nbsp; ${user.company_id.phone}\n"
+"            </div>\n"
+"        % endif\n"
+"        % if user.company_id.website:\n"
+"            <div>\n"
+"                Web :&nbsp;<a href=\"${user.company_id.website}\">${user.company_id.website}</a>\n"
+"            </div>\n"
+"        %endif\n"
+"        <p></p>\n"
+"    </div>\n"
+"</div>\n"
+"            "
+
+#. module: most_selling_product
+#: code:addons/most_selling_product/report/inventory_report_most_selling_product.py:277
+#, python-format
+msgid " No Location Found!\n"
+" please check your warehouse/location configuration."
+msgstr " No Location Found!\n"
+" please check your warehouse/location configuration."
+
+#. module: most_selling_product
+#: model:ir.ui.view,arch_db:most_selling_product.view_top_selling
+msgid "(If you do not select company it will take all companies)"
+msgstr "(If you do not select company it will take all companies)"
+
+#. module: most_selling_product
+#: model:ir.ui.view,arch_db:most_selling_product.view_top_selling
+msgid "(If you do not select warehouse it will take all warehouses)"
+msgstr "(If you do not select warehouse it will take all warehouses)"
+
+#. module: most_selling_product
+#: model:ir.ui.view,arch_db:most_selling_product.ir_most_selling_product
+msgid "<strong style=\"color:#4B524F;font-size: 19px;\">Total Inventory\n"
+"                                        </strong>"
+msgstr "<strong style=\"color:#4B524F;font-size: 19px;\">Total Inventory\n"
+"                                        </strong>"
+
+#. module: most_selling_product
+#: model:ir.ui.view,arch_db:most_selling_product.ir_most_selling_product
+msgid "<strong>Company</strong>"
+msgstr "<strong>Company</strong>"
+
+#. module: most_selling_product
+#: model:ir.ui.view,arch_db:most_selling_product.ir_most_selling_product
+msgid "<strong>Date</strong>"
+msgstr "<strong>Date</strong>"
+
+#. module: most_selling_product
+#: model:ir.ui.view,arch_db:most_selling_product.ir_most_selling_product
+msgid "<strong>Top Products</strong>"
+msgstr "<strong>Top Products</strong>"
+
+#. module: most_selling_product
+#: model:ir.ui.view,arch_db:most_selling_product.ir_most_selling_product
+msgid "<strong>Warehouse</strong>"
+msgstr "<strong>Warehouse</strong>"
+
+#. module: most_selling_product
+#: model:ir.ui.view,arch_db:most_selling_product.view_autoschedule_tsp_tree
+msgid "AutoSchedule"
+msgstr "AutoSchedule"
+
+#. module: most_selling_product
+#: model:ir.actions.act_window,name:most_selling_product.view_autoschedule_tsp_action
+#: model:ir.ui.menu,name:most_selling_product.menu_autoschedule_tsp_action
+msgid "AutoSchedule Email"
+msgstr "AutoSchedule Email"
+
+#. module: most_selling_product
+#: model:ir.model.fields,field_description:most_selling_product.field_ir_attachment_autoschedule_tsp
+#: model:ir.model.fields,field_description:most_selling_product.field_mrp_document_autoschedule_tsp
+msgid "Autoschedule Tsp"
+msgstr "Autoschedule Tsp"
+
+#. module: most_selling_product
+#: model:ir.model.fields,field_description:most_selling_product.field_top_selling_report_start_date
+msgid "Beginning Date"
+msgstr "Beginning Date"
+
+#. module: most_selling_product
+#: model:ir.ui.view,arch_db:most_selling_product.top_selling_dashboard
+msgid "By Locations"
+msgstr "By Locations"
+
+#. module: most_selling_product
+#: model:ir.ui.view,arch_db:most_selling_product.top_selling_dashboard
+msgid "By Products"
+msgstr "By Products"
+
+#. module: most_selling_product
+#: model:ir.ui.view,arch_db:most_selling_product.view_top_selling
+msgid "Cancel"
+msgstr "Cancel"
+
+#. module: most_selling_product
+#: model:ir.model.fields,field_description:most_selling_product.field_autoschedule_tsp_company_id
+#: model:ir.model.fields,field_description:most_selling_product.field_top_selling_report_company_id
+#: model:ir.ui.view,arch_db:most_selling_product.view_top_selling
+msgid "Company"
+msgstr "Company"
+
+#. module: most_selling_product
+#: model:ir.model.fields,field_description:most_selling_product.field_autoschedule_tsp_create_uid
+#: model:ir.model.fields,field_description:most_selling_product.field_top_selling_report_create_uid
+msgid "Created by"
+msgstr "Created by"
+
+#. module: most_selling_product
+#: model:ir.model.fields,field_description:most_selling_product.field_autoschedule_tsp_create_date
+#: model:ir.model.fields,field_description:most_selling_product.field_top_selling_report_create_date
+msgid "Created on"
+msgstr "Created on"
+
+#. module: most_selling_product
+#: selection:autoschedule.tsp,report_send_for:0
+msgid "Current Month"
+msgstr "Current Month"
+
+#. module: most_selling_product
+#: selection:autoschedule.tsp,report_send_for:0
+msgid "Current Quarter"
+msgstr "Current Quarter"
+
+#. module: most_selling_product
+#: selection:autoschedule.tsp,report_send_for:0
+msgid "Current Week"
+msgstr "Current Week"
+
+#. module: most_selling_product
+#: selection:autoschedule.tsp,report_send_for:0
+msgid "Current Year"
+msgstr "Current Year"
+
+#. module: most_selling_product
+#: model:ir.actions.act_window,name:most_selling_product.top_sellng_view_lc_dashboard_action
+msgid "DashBoard View(BY Location)"
+msgstr "DashBoard View(BY Location)"
+
+#. module: most_selling_product
+#: model:ir.actions.act_window,name:most_selling_product.top_sellng_view_dashboard_action
+msgid "DashBoard View(BY PRODUCT)"
+msgstr "DashBoard View(BY PRODUCT)"
+
+#. module: most_selling_product
+#: model:ir.actions.act_window,name:most_selling_product.top_selling_dashboard_action
+#: model:ir.ui.menu,name:most_selling_product.menu_top_sellng_dashboard_action
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#. module: most_selling_product
+#: model:ir.model.fields,field_description:most_selling_product.field_autoschedule_tsp_display_name
+#: model:ir.model.fields,field_description:most_selling_product.field_report_most_selling_product_ir_most_selling_product_display_name
+#: model:ir.model.fields,field_description:most_selling_product.field_top_selling_report_display_name
+#: model:ir.model.fields,field_description:most_selling_product.field_top_selling_view_report_display_name
+msgid "Display Name"
+msgstr "Display Name"
+
+#. module: most_selling_product
+#: model:ir.model.fields,field_description:most_selling_product.field_top_selling_report_value
+msgid "Display Top Products?"
+msgstr "Display Top Products?"
+
+#. module: most_selling_product
+#: model:ir.model.fields,field_description:most_selling_product.field_autoschedule_tsp_enable
+msgid "Enable"
+msgstr "Enable"
+
+#. module: most_selling_product
+#: model:ir.model.fields,field_description:most_selling_product.field_top_selling_report_end_date
+msgid "End Date"
+msgstr "End Date"
+
+#. module: most_selling_product
+#: model:ir.ui.view,arch_db:most_selling_product.top_sellng_view_report_dashboardsearch
+#: model:ir.ui.view,arch_db:most_selling_product.top_sellng_view_report_search
+msgid "Group By"
+msgstr "Group By"
+
+#. module: most_selling_product
+#: model:ir.model.fields,field_description:most_selling_product.field_autoschedule_tsp_id
+#: model:ir.model.fields,field_description:most_selling_product.field_report_most_selling_product_ir_most_selling_product_id
+#: model:ir.model.fields,field_description:most_selling_product.field_top_selling_report_id
+#: model:ir.model.fields,field_description:most_selling_product.field_top_selling_view_report_id
+msgid "ID"
+msgstr "ID"
+
+#. module: most_selling_product
+#: model:ir.model.fields,help:most_selling_product.field_autoschedule_tsp_enable
+msgid "If TRUE, then only auto email will be sent."
+msgstr "If TRUE, then only auto email will be sent."
+
+#. module: most_selling_product
+#: model:ir.model.fields,help:most_selling_product.field_top_selling_report_value
+msgid "If you want to see Top 10 selling product, then put 10 here."
+msgstr "If you want to see Top 10 selling product, then put 10 here."
+
+#. module: most_selling_product
+#: model:ir.model.fields,help:most_selling_product.field_autoschedule_tsp_to_send
+msgid "If you want to send most selling no. of products(10) to selected partner, then put 10 here."
+msgstr "If you want to send most selling no. of products(10) to selected partner, then put 10 here."
+
+#. module: most_selling_product
+#: model:ir.model.fields,field_description:most_selling_product.field_top_selling_report_include_zero
+msgid "Include Zero Movement?"
+msgstr "Include Zero Movement?"
+
+#. module: most_selling_product
+#: model:ir.ui.view,arch_db:most_selling_product.view_top_selling
+msgid "Inventory"
+msgstr "Inventory"
+
+#. module: most_selling_product
+#: model:ir.model.fields,field_description:most_selling_product.field_autoschedule_tsp___last_update
+#: model:ir.model.fields,field_description:most_selling_product.field_report_most_selling_product_ir_most_selling_product___last_update
+#: model:ir.model.fields,field_description:most_selling_product.field_top_selling_report___last_update
+#: model:ir.model.fields,field_description:most_selling_product.field_top_selling_view_report___last_update
+msgid "Last Modified on"
+msgstr "Last Modified on"
+
+#. module: most_selling_product
+#: selection:autoschedule.tsp,report_send_for:0
+msgid "Last Month"
+msgstr "Last Month"
+
+#. module: most_selling_product
+#: model:ir.model.fields,field_description:most_selling_product.field_autoschedule_tsp_write_uid
+#: model:ir.model.fields,field_description:most_selling_product.field_top_selling_report_write_uid
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: most_selling_product
+#: model:ir.model.fields,field_description:most_selling_product.field_autoschedule_tsp_write_date
+#: model:ir.model.fields,field_description:most_selling_product.field_top_selling_report_write_date
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: most_selling_product
+#: selection:autoschedule.tsp,report_send_for:0
+msgid "Last Week"
+msgstr "Last Week"
+
+#. module: most_selling_product
+#: model:ir.model.fields,field_description:most_selling_product.field_top_selling_view_report_location_id
+#: model:ir.ui.view,arch_db:most_selling_product.top_sellng_view_report_dashboardsearch
+#: model:ir.ui.view,arch_db:most_selling_product.top_sellng_view_report_search
+msgid "Location"
+msgstr "Location"
+
+#. module: most_selling_product
+#: model:ir.ui.view,arch_db:most_selling_product.top_selling_dashboard
+msgid "Manager Board"
+msgstr "Manager Board"
+
+#. module: most_selling_product
+#: model:ir.model.fields,field_description:most_selling_product.field_autoschedule_tsp_to_send
+msgid "Max.Sellings Products To Send"
+msgstr "Max.Sellings Products To Send"
+
+#. module: most_selling_product
+#: model:res.groups,name:most_selling_product.group_most_selling_products
+msgid "Most Selling Products Features"
+msgstr "Most Selling Products Features"
+
+#. module: most_selling_product
+#: model:ir.ui.menu,name:most_selling_product.menu_child1_top_selling_report
+msgid "PDF Report"
+msgstr "PDF Report"
+
+#. module: most_selling_product
+#: code:addons/most_selling_product/wizard/top_selling_wizard.py:54
+#, python-format
+msgid "Please select company of those warehouses to get correct view.\n"
+"You should remove all warehouses first from selection field."
+msgstr "Please select company of those warehouses to get correct view.\n"
+"You should remove all warehouses first from selection field."
+
+#. module: most_selling_product
+#: model:ir.ui.view,arch_db:most_selling_product.view_top_selling
+msgid "Print"
+msgstr "Print"
+
+#. module: most_selling_product
+#: model:ir.model.fields,field_description:most_selling_product.field_top_selling_view_report_product_id
+#: model:ir.ui.view,arch_db:most_selling_product.top_sellng_view_report_dashboardsearch
+#: model:ir.ui.view,arch_db:most_selling_product.top_sellng_view_report_search
+msgid "Product"
+msgstr "Product"
+
+#. module: most_selling_product
+#: selection:top.selling.report,sort_order:0
+msgid "Product Category"
+msgstr "Product Category"
+
+#. module: most_selling_product
+#: model:ir.model.fields,field_description:most_selling_product.field_autoschedule_tsp_report_send_for
+msgid "Report Send For"
+msgstr "Report Send For"
+
+#. module: most_selling_product
+#: model:ir.ui.view,arch_db:most_selling_product.ir_most_selling_product
+msgid "Sales(In Qty)"
+msgstr "Sales(In Qty)"
+
+#. module: most_selling_product
+#: model:ir.ui.menu,name:most_selling_product.topselling_screen_report
+msgid "Screen Report"
+msgstr "Screen Report"
+
+#. module: most_selling_product
+#: model:ir.model.fields,field_description:most_selling_product.field_autoschedule_tsp_warehouse_ids
+msgid "Select Warehouse"
+msgstr "Select Warehouse"
+
+#. module: most_selling_product
+#: model:ir.model.fields,field_description:most_selling_product.field_autoschedule_tsp_partner_ids
+msgid "Send Email To"
+msgstr "Send Email To"
+
+#. module: most_selling_product
+#: model:ir.model.fields,field_description:most_selling_product.field_top_selling_view_report_product_qty_out
+msgid "Sold Quantity"
+msgstr "Sold Quantity"
+
+#. module: most_selling_product
+#: model:ir.model.fields,field_description:most_selling_product.field_top_selling_report_sort_order
+msgid "Sort Order"
+msgstr "Sort Order"
+
+#. module: most_selling_product
+#: model:ir.model.fields,help:most_selling_product.field_autoschedule_tsp_report_send_for
+msgid "Suppose today is 1-SEP-2017, \n"
+"Then current week would be 28-AUG-2017 TO 03-SEP-2017,\n"
+"Then last week would be 21-AUG-2017 TO 28-AUG-2017,\n"
+"Then current month would be 01-SEP-2017 TO 30-SEP-2017,\n"
+"Then last month would be 01-AUG-2017 TO 31-AUG-2017,\n"
+"Then current Quarter would be 01-JUL-2017 TO 30-SEP-2017,\n"
+"Then current Year would be 01-JAN-2017 TO 31-DEC-2017"
+msgstr "Suppose today is 1-SEP-2017, \n"
+"Then current week would be 28-AUG-2017 TO 03-SEP-2017,\n"
+"Then last week would be 21-AUG-2017 TO 28-AUG-2017,\n"
+"Then current month would be 01-SEP-2017 TO 30-SEP-2017,\n"
+"Then last month would be 01-AUG-2017 TO 31-AUG-2017,\n"
+"Then current Quarter would be 01-JUL-2017 TO 30-SEP-2017,\n"
+"Then current Year would be 01-JAN-2017 TO 31-DEC-2017"
+
+#. module: most_selling_product
+#: selection:autoschedule.tsp,report_send_for:0
+msgid "Today"
+msgstr "Today"
+
+#. module: most_selling_product
+#: model:ir.ui.view,arch_db:most_selling_product.top_sellng_view_report_tree
+msgid "Top Selling"
+msgstr "Top Selling"
+
+#. module: most_selling_product
+#: model:ir.ui.view,arch_db:most_selling_product.top_sellng_view_report_dashboardsearch
+#: model:ir.ui.view,arch_db:most_selling_product.top_sellng_view_report_graph
+#: model:ir.ui.view,arch_db:most_selling_product.top_sellng_view_report_pivot
+#: model:ir.ui.view,arch_db:most_selling_product.top_sellng_view_report_search
+msgid "Top Selling Activity"
+msgstr "Top Selling Activity"
+
+#. module: most_selling_product
+#: model:ir.actions.act_window,name:most_selling_product.action_top_selling
+#: model:ir.model,name:most_selling_product.model_top_selling_view_report
+#: model:ir.ui.menu,name:most_selling_product.menu_topselling_report
+#: model:ir.ui.view,arch_db:most_selling_product.ir_most_selling_product
+#: model:mail.template,subject:most_selling_product.email_template_autotsp
+msgid "Top Selling Products"
+msgstr "Top Selling Products"
+
+#. module: most_selling_product
+#: model:ir.actions.server,name:most_selling_product.draft_tsp_cron_ir_actions_server
+#: model:ir.cron,cron_name:most_selling_product.draft_tsp_cron
+#: model:ir.cron,name:most_selling_product.draft_tsp_cron
+msgid "Top Selling Products Notification"
+msgstr "Top Selling Products Notification"
+
+#. module: most_selling_product
+#: model:ir.actions.report,name:most_selling_product.action_ir_most_selling_product
+msgid "Top Selling Products(PDF)"
+msgstr "Top Selling Products(PDF)"
+
+#. module: most_selling_product
+#: model:ir.model.fields,help:most_selling_product.field_top_selling_report_include_zero
+msgid "True, if you want to see zero movements of products.\n"
+"Note: It will consider only movements done in-between dates."
+msgstr "True, if you want to see zero movements of products.\n"
+"Note: It will consider only movements done in-between dates."
+
+#. module: most_selling_product
+#: model:ir.ui.view,arch_db:most_selling_product.ir_most_selling_product
+msgid "UoM"
+msgstr "UoM"
+
+#. module: most_selling_product
+#: model:ir.actions.act_window,name:most_selling_product.top_sellng_view_report_action
+msgid "View Report"
+msgstr "View Report"
+
+#. module: most_selling_product
+#: selection:top.selling.report,sort_order:0
+msgid "Warehouse"
+msgstr "Warehouse"
+
+#. module: most_selling_product
+#: model:ir.ui.view,arch_db:most_selling_product.view_top_selling
+msgid "Warehouses"
+msgstr "Warehouses"
+
+#. module: most_selling_product
+#: model:ir.model,name:most_selling_product.model_autoschedule_tsp
+msgid "autoschedule.tsp"
+msgstr "autoschedule.tsp"
+
+#. module: most_selling_product
+#: model:ir.model,name:most_selling_product.model_ir_attachment
+msgid "ir.attachment"
+msgstr "ir.attachment"
+
+#. module: most_selling_product
+#: model:ir.ui.view,arch_db:most_selling_product.view_top_selling
+msgid "or"
+msgstr "or"
+
+#. module: most_selling_product
+#: model:ir.model,name:most_selling_product.model_report_most_selling_product_ir_most_selling_product
+msgid "report.most_selling_product.ir_most_selling_product"
+msgstr "report.most_selling_product.ir_most_selling_product"
+
+#. module: most_selling_product
+#: model:ir.model,name:most_selling_product.model_top_selling_report
+msgid "top.selling.report"
+msgstr "top.selling.report"
+
+#. module: most_selling_product
+#: model:ir.model.fields,field_description:most_selling_product.field_top_selling_report_warehouse_ids
+msgid "warehouse"
+msgstr "warehouse"
+

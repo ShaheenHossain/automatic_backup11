@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ng_flexiretail_com_advance_ng_flexiretail_com_advance,ng_flexiretail_com_advance.ng_flexiretail_com_advance,model_ng_flexiretail_com_advance_ng_flexiretail_com_advance,,1,0,0,0

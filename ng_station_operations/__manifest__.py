@@ -1,0 +1,50 @@
+# -*- coding: utf-8 -*-
+
+{
+    'name': 'Richbam Station Operation',
+    'version': '1.0.0',
+    'author': 'Mattobell Nigeria Limited',
+    'summary': 'Filling Station Operation Management',
+    'license': 'AGPL-3',
+    'description': """
+    Management of Station Operations
+    """,
+
+    'data': [
+        'security/station_security_menu.xml',
+        'views/station_menu_view.xml',
+        'views/station_purchase_view.xml',
+        'views/station_discharge_operation_view.xml',
+        'views/station_sales_view.xml',
+        'views/station_configuration_view.xml',
+        'views/station_warehouse_configuration_view.xml',
+        'views/station_truck_tank_configuration_view.xml',
+        'views/station_dispensers_configuration_view.xml',
+        'views/station_pump_configuration_view.xml',
+        'views/station_attendant_return_view.xml',
+        'views/station_meter_readings_return_view.xml',
+        'views/station_product_view.xml',
+        'views/loading_ticket_view.xml',
+        'views/station_customers_view.xml',
+        'views/station_res_partner_view.xml',
+        'views/station_stock_picking_view.xml',
+        'views/station_lodgement_view.xml',
+        'security/ir.model.access.csv',
+    ],
+    'version': '0.0.1',
+    'category': 'Human Resources',
+    'website': 'https://www.mattobell.com',
+    'depends': [
+        'fleet',
+        'stock',
+        'sale',
+        'sale_stock',
+        'purchase',
+        'mail',
+        'sale_management',
+        'account_accountant',
+        'stock_account',
+    ],
+    'application': True,
+    'auto_install': False,
+}

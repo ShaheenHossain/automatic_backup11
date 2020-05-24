@@ -1,0 +1,87 @@
+<odoo>
+    <data>
+        <report
+            id="richbam_product_report"
+            string="Product Report"
+            model="product.template"
+            report_type="qweb-pdf"
+            name="ng_richbam_report.simple_product_report"
+            file="ng_richbam_report.simple_product_report"
+            print_report_name="'Product Report - %s' % (object.name)"
+        />
+
+        <template id="simple_product_report">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <div style="padding:0;">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Product ID</th>
+                                    <th>Product Name</th>
+                                    <th>Category ID</th>
+                                    <th>Product Category</th>
+                                    <th>Selling Price</th>
+                                    <th>Quantity</th>
+                                    <th>Product Type</th>
+                                    <th>Product on Sale</th>
+                                    <th>Product Variance</th>
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                <t t-foreach="docs" t-as="product">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="product.id"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="product.name"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="product.categ_id.id"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="product.categ_id.name"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="product.lst_price" t-options='{"widget": "monetary", "display_currency": product.currency_id}'/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="product.qty_available"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="product.type"/>
+                                        </td>
+                                        <td>
+                                            <p t-if="product.qty_available &lt;= 0">No</p>
+                                            <p t-if="product.qty_available &gt; 0">Yes</p>
+                                        </td>
+                                        <td>
+                                            <p t-foreach="product.attribute_line_ids" t-as="attributes">
+                                                <span> <t t-esc="attributes.attribute_id.name"/> </span>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <template id="richbam_report_productlabel">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <t t-foreach="docs" t-as="product">
+                        <t t-call="ng_richbam_report.simple_product_report">
+                            <t t-set="product" t-value="product"/>
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </template>
+
+    </data>
+</odoo>

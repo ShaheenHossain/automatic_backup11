@@ -1,0 +1,8 @@
+<odoo>
+    <data>
+        <record id="hide_quantity_update" model="res.groups">
+            <field name="name">Hide Update Quantity Button</field>
+            <!--<field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>-->
+        </record>
+    </data>
+</odoo>

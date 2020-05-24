@@ -1,0 +1,20 @@
+<odoo>
+    <data>
+        <record id="res_concession" model="ir.ui.view">
+            <field name="name">sale.return.company</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[1]" position="after">
+                    <page string="Default Accounts">
+                        <group>
+                            <field name="income_account"/>
+                            <field name="expense_account"/>
+                            <field name="price_difference_account"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

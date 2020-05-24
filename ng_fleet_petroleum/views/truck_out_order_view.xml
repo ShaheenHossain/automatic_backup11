@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Rental Order Tree View -->
+        <record id="truck_order_out_view_tree" model="ir.ui.view">
+            <field name="name">truck.order.out.view.tree</field>
+            <field name="model">truck.order.out</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Truck Outgoing Order">
+                    <field name="code" />
+                    <field name="name" placeholder="Request for Truck to pick PMS" />
+                    <field name="truck_id" />
+                    <field name="requester" string="Customer"/>
+                    <field name="company_id" invisible="True"/>
+                    <field name="invoice_id" invisible="1" />
+                    <field name="date_needed" />
+                    <field name="depot_id" />
+                    <field name="request_date" />
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Rental Order -->
+        <record id="truck_order_out_view_form" model="ir.ui.view">
+            <field name="name">truck.order.out.view.form</field>
+            <field name="model">truck.order.out</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Truck Outgoing Order" class="oe_sale_order">
+                    <header>
+                        <button name="send_quotation_mail" string="Send by email" states="" groups="ng_fleet_petroleum.truck_manager" type="object" class="oe_highlight" />
+                        <button name="get_approve" string="Approve" states="draft" groups="ng_fleet_petroleum.truck_manager" type="object" class="btn btn-success" />
+                        <button name="get_reject" string="Reject" states="draft" groups="ng_fleet_petroleum.truck_manager" type="object" class="btn btn-danger" />
+                        <button name="get_cancel" string="Cancel" states="draft" groups="ng_fleet_petroleum.truck_manager" type="object" class="btn btn-warning" />
+                        <button string="View Invoice" groups="" name="%(account.action_invoice_tree1)d" type="action" class="oe_highlight" context="{'search_default_id':invoice_id}" help="View the corresponding invoice raised" states='approve'/>
+                        <field name="state" widget="statusbar" />
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="code" />
+                                <field name="name" placeholder="Request for Truck to pick PMS" />
+                                <field name="truck_id" />
+                                <field name="requester" string="Customer"/>
+                                <field name="company_id" invisible="True"/>
+                            </group>
+                            <group>
+                                <field name="invoice_id" invisible="1" />
+                                <field name="date_needed" />
+                                <field name="depot_id" />
+                                <field name="request_date" />
+                                <field name="currency_id" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Order Lines">
+                                <field name='order_lines' context="{'default_company_id': company_id}">
+                                    <tree string="Order Lines" editable="bottom">
+                                        <field name="partner_id" readonly="1"/>
+                                        <field name="description" readonly="1"/>
+                                        <field name="template_id" />
+                                        <field name="qty_order" readonly="1"/>
+                                        <field name="price_unit" readonly="1"/>
+                                        <field name="subtotal" options="{'currency_field': 'parent.currency_id'}" widget="monetary"/>
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                                    <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                        <label for="amount_total" />
+                                    </div>
+                                    <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Truck order search view -->
+        <record id="truck_order_out_out_request_search" model="ir.ui.view">
+            <field name="name">truck.order.out.search.view</field>
+            <field name="model">truck.order.out</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="request_id"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Action to Open fleet Outgoing Order -->
+        <record id="action_fleet_out_order" model="ir.actions.act_window">
+            <field name="name">Fleet Outgoing Order</field>
+            <field name="res_model">truck.order.out</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+        </record>
+
+        <!-- Menu for Outgoing Fleet Quotations -->
+        <menuitem id="fleet_out_order_menu" name="Outgoing Orders" parent="fleet.menu_root" sequence="2" groups="ng_fleet_petroleum.truck_manager"/>
+
+        <!-- Quotation Menu -->
+        <menuitem id="quotation_out_menu" name="Outgoing Quotations" parent="fleet_out_order_menu" sequence="1"
+                  action="action_fleet_out_order" />
+    </data>
+</odoo>

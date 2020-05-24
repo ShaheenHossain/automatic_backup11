@@ -1,0 +1,63 @@
+<odoo>
+    <data>
+
+        <record id="view_warehouse_form" model="ir.ui.view">
+            <field name="name">stock.warehouse.search</field>
+            <field name="model">stock.warehouse</field>
+            <field name="inherit_id" ref="stock.view_warehouse"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='code']" position="after">
+                    <field name="is_tank"/>
+                    <field name="is_truck"/>
+                    <field name="product_id"/>
+                </xpath>
+                <field name="partner_id" position="after">
+                    <field name="pump_id" widget="many2many_tags"/>
+                    <field name="fleet_id"/>
+                </field>
+            </field>
+        </record>
+
+
+        <record id="view_warehouse_location_search" model="ir.ui.view">
+            <field name="name">stock.warehouse.search</field>
+            <field name="model">stock.warehouse</field>
+            <field name="inherit_id" ref="stock.stock_warehouse_view_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='inactive']" position="after">
+                    <filter string="Tank" name="tank" domain="[('is_tank', '=', True)]" context="{'tank': '1'}"/>
+                    <filter string="Truck" name="truck" domain="[('is_truck', '=', True)]" context="{'truck': '1'}"/>
+                </xpath>
+            </field>
+         </record>
+
+        <record model="ir.actions.act_window" id="tank_warehouse_action">
+            <field name="name">Tank Warehouse</field>
+            <field name="res_model">stock.warehouse</field>
+            <field name="context" eval="{'search_default_tank': 1}"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="truck_warehouse_action">
+            <field name="name">Truck Warehouse</field>
+            <field name="res_model">stock.warehouse</field>
+            <field name="context" eval="{'search_default_truck': 1}"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem id="truck_warehouse_action_id" name="Truck Warehouse" parent="station_config_menu"
+                  action="truck_warehouse_action" sequence="15"
+                  groups="ng_station_operations.group_manager,ng_station_operations.group_discharge_menu"/>
+        <menuitem id="tank_warehouse_action_id" name="Tank Warehouse" parent="station_config_menu"
+                  action="tank_warehouse_action" sequence="10" groups="ng_station_operations.group_manager"/>
+
+
+
+
+
+    </data>
+</odoo>

@@ -1,0 +1,493 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<odoo>
+    <data>
+
+        <menuitem id="menu_cash_head" groups="base.group_user" icon="terp-stock" name="Staff Advances" sequence="100"/>
+
+        <menuitem id="menu_cash_head_conf" groups="account_cash_advance.advance_manager" parent="menu_cash_head" icon="terp-stock" name="Configuration" sequence="10000" />
+
+            <!-- Salary Advance Policy-->
+
+            <record id="view_salary_advance_policy_filter" model="ir.ui.view">
+                <field name="name">salary.advance.policy.list.select</field>
+                <field name="model">salary.advance.policy</field>
+                <field name="arch" type="xml">
+                     <search string="Search Salary Advance Policies">
+                     <group>
+                        <field name="name" filter_domain="[('name','ilike',self)]"/>
+                        <field name="code"/>
+                        <field name="day"/>
+                        <field name="company_id" groups="base.group_multi_company" widget="selection"/>
+                        <field name="employee_categ_ids" nolabel="0"/>
+                        <field name="employee_ids"  nolabel="0"/>
+                     </group>
+                     <newline/>
+                     <group expand="0" string="Group By...">
+                         <filter string="Basis" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'method'}"/>
+                         <filter string="Company" icon="terp-go-home" domain="[]" context="{'group_by':'company_id'}"/>
+                     </group>
+                   </search>
+                </field>
+            </record>
+
+            <record id="view_policy_tree" model="ir.ui.view">
+                <field name="name">salary.advance.policy.tree</field>
+                <field name="model">salary.advance.policy</field>
+                <field name="arch" type="xml">
+                    <tree string="Salary Advance policies">
+                        <field name="name"/>
+                        <field name="code"/>
+                        <field name="method"/>
+                        <field name="policy_value"/>
+                        <field name="day"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                        <field name='state' invisible="True" />
+                    </tree>
+                </field>
+            </record>
+
+            <record id="view_salary_advance_form" model="ir.ui.view">
+                <field name="name">policy.form</field>
+                <field name="model">salary.advance.policy</field>
+                <field name="arch" type="xml">
+                    <form string="Salary Advance Policies">
+                        <group>
+                            <field name="name" colspan="2"/>
+                            <field name="code" colspan="2"/><newline/>
+                            <field name="method" colspan="2"/>
+                         </group>
+                         <group>
+                            <field name="policy_value" colspan="2"/>
+                            <field name="day"/>
+                            <field name="company_id" groups="base.group_multi_company" colspan="2"/>
+                            <field name='state' invisible="True" />
+                        </group>
+                        <group>
+                            <separator string="Employee Categories" colspan="2"/>
+                            <field name="employee_categ_ids" colspan="2" nolabel="1"  height="400"/>
+                            <separator string="Employee's" colspan="2"/>
+                            <field name="employee_ids" colspan="2" nolabel="1"/>
+                         </group>
+                      </form>
+                   </field>
+               </record>
+
+               <record id="action_salary_advance_policy" model="ir.actions.act_window">
+                    <field name="name">Salary Advance Policies</field>
+                    <field name="type">ir.actions.act_window</field>
+                    <field name="res_model">salary.advance.policy</field>
+                    <field name="view_type">form</field>
+                    <field name="view_mode">tree,form</field>
+                    <field name="search_view_id" ref="view_salary_advance_policy_filter"/>
+                    <field name="help">It will be used to decide different criteria of salary advance for categories of employee's or for particular employee</field>
+                </record>
+                <menuitem name="Advances" parent="menu_cash_head_conf" id="menu_open_salary_advance_config" sequence="5"/>
+                <menuitem action="action_salary_advance_policy" id="salary_advance_policies" parent="menu_open_salary_advance_config" name="Salary Advance Policies"/>
+
+            <!-- Advance -->
+
+            <record model="ir.ui.view" id="view_account_advance_main_form">
+                <field name="name">salary.advance.form</field>
+                <field name="model">salary.advance</field>
+                <field name="arch" type="xml">
+                    <form string="Salary Advances">
+                        <header>
+                           <button name="validate" states="draft"  class="oe_highlight" string="Confirm" type="object"/>
+                           <button name="approve" states="open"  class="oe_highlight" string="Approve" type="object" groups="account_cash_advance.advance_manager"/>
+                           <button name="set_to_draft" states="reject" string="Set to Draft" type="object" groups="account_cash_advance.advance_manager"/>
+                           <button name="set_to_close" states="open" string="Reject" type="object" groups="account_cash_advance.advance_manager"/>
+                           <button name="create_move" string="Pay"  class="oe_highlight" states="approve" type="object" groups="account.group_account_user"/>
+                           <button name="set_to_close_paid" states="approve" string="Reject" type="object" groups="account.group_account_user"/>
+                           <button name="set_to_draft_app" states="cancel" string="Set to Draft" type="object" groups="account_cash_advance.advance_manager" />
+                           <button name="set_to_cancel" states="draft" string="Cancel" type="object" groups="account_cash_advance.advance_manager" />
+                           <field name="state" readonly="1" widget="statusbar" colspan="2"/>
+                        </header>
+                        <sheet>
+                            <div class="oe_title">
+                                <label for="name" class="oe_edit_only"/>
+                                <h1><field name="name"/></h1>
+                                <label for="emp_id" class="oe_edit_only"/>
+                                <h2><field name="emp_id"/></h2>
+                            </div>
+                            <group>
+                                <separator string="General" colspan="4"/>
+                                <field name="department_id"/>
+                                <field name="advance" readonly="0"/>
+                                <field name="date"/>
+                                <field name="manager_id"/>
+                                <field name="approval_date"/>
+                                <field name="user_id"/>
+                                <field name="company_id" widget="selection" groups="base.group_multi_company"/><newline/>
+                                <separator string="Accounting Information" colspan="4" />
+                                <field name="move" groups="account.group_account_user" attrs="{'invisible':[('state','!=','approve')]}"  />
+                                <field name="journal_id" groups="account.group_account_user" />
+                                <field name="currency_id" groups="account.group_account_user"   />
+                                <field name="employee_account" groups="account.group_account_user"  />
+                                <field name="move_id1" groups="account.group_account_user" attrs="{'invisible':[('state','=','draft')]}"  /><newline/>
+                                <separator string="" colspan="4"/><newline/>
+                                <separator string="Notes" colspan="4"/>
+                                <field name="notes" colspan="4" nolabel="1"/>
+                            </group>
+                        </sheet>
+                        <div class="oe_chatter">
+                            <field name="message_follower_ids" widget="mail_followers"/>
+                            <field name="message_ids" widget="mail_thread"/>
+                        </div>
+                    </form>
+                </field>
+            </record>
+
+            <record model="ir.ui.view" id="view_account_advance_main_tree_new">
+                <field name="name">salary.advance.tree</field>
+                <field name="model">salary.advance</field>
+                <field name="arch" type="xml">
+                    <tree string="Salary Advances">
+                        <field name="name"/>
+                        <field name="emp_id"/>
+                        <field name="user_id" invisible="1"/>
+                        <field name="department_id" invisible="1"/>
+                        <field name="advance"/>
+                        <field name="date"/>
+                        <field name="approval_date" invisible="0"/>
+                        <field name="journal_id" invisible="1"/>
+                        <field name="employee_account" invisible="1"/>
+                        <field name="manager_id"/>
+                        <field name="company_id" widget="selection" groups="base.group_multi_company"/>
+                        <field name="state" readonly="1" widget="statusbar" colspan="2"/>
+                        <button name="approve" states="open" string="Approve" type="object" groups="account_cash_advance.advance_manager"  icon="gtk-apply"/>
+                        <button name="set_to_close" states="open" string="Reject" type="object" groups="account_cash_advance.advance_manager" icon="gtk-close"/>
+                    </tree>
+                </field>
+            </record>
+
+            <record model="ir.ui.view" id="view_account_advance_main_search">
+                <field name="name">salary.advance.search</field>
+                <field name="model">salary.advance</field>
+                <field name="arch" type="xml">
+                    <search string="Search Salary Advances">
+                        <filter icon="terp-check" domain="[('state','=','draft')]" string="To Confirm"/>
+                        <filter icon="terp-camera_test" domain="[('state','=','open')]" string="To Approve" name="cc"/>
+                        <filter icon="terp-camera_test" domain="[('state','=','approve')]" string="Validated" name="bb"/>
+                        <filter icon="terp-check" domain="[('state','=','paid')]" string="Paid" name="paid"/>
+                        <separator orientation="vertical"/>
+                        <filter icon="terp-go-year" name="year" string="Year" domain="[('date','&gt;=',time.strftime('%%Y-1-1')),('date','&lt;=',time.strftime('%%Y-12-31'))]"/>
+        <!--                <filter icon="terp-go-month" name="This Month" string="Month" domain="[('date','&lt;=',(datetime.date.today()+relativedelta(day=31)).strftime('%%Y-%%m-%%d')),('date','&gt;=',(datetime.date.today()-relativedelta(day=1)).strftime('%%Y-%%m-%%d'))]"/>
+                        <filter icon="terp-go-month" name="This Month-1" string=" Month-1"
+                         domain="[('date','&lt;=', (datetime.date.today() - relativedelta(day=31, months=1)).strftime('%%Y-%%m-%%d')),('date','&gt;=',(datetime.date.today() - relativedelta(day=1,months=1)).strftime('%%Y-%%m-%%d'))]"
+                         help="Advance during last month"/>
+                        <separator orientation="vertical"/> -->
+                        <field name="name"/>
+                        <field name="emp_id"/>
+                        <field name="department_id" widget="selection" invisible="0"/>
+                        <field name="date"/>
+                        <field name="approval_date"/>
+                        <newline/>
+                        <field name="user_id">
+                            <filter icon="terp-personal" name="my_advance" domain="[('user_id','=', uid)]" help="My Advances"/>
+                        </field>
+                        <field name="journal_id" widget="selection" invisible="0"/>
+                        <field name="employee_account" invisible="0"/>
+                        <field name="state"/>
+                        <field name="company_id" widget="selection" groups="base.group_multi_company"/>
+                        <newline/>
+                        <group expand="0" string="Group By..." >
+                            <filter name="group_date_from1" string="Date" icon="terp-go-month" domain="[]" context="{'group_by':'date'}"/>
+                            <filter name="group_date_from" string="Approval Date" icon="terp-go-month" domain="[]" context="{'group_by':'approval_date'}"/>
+                            <separator orientation="vertical"/>
+                            <filter name="group_employee1" string="Manager" icon="terp-personal" domain="[]" context="{'group_by':'manager_id'}"/>
+                            <filter name="group_employee1" string="Employee" icon="terp-personal" domain="[]" context="{'group_by':'emp_id'}"/>
+                            <filter name="group_employee0" string="User" icon="terp-personal" domain="[]" context="{'group_by':'user_id'}"/>
+                            <filter name="group_category" string="Department" icon="terp-stock_symbol-selection" domain="[]" context="{'group_by':'department_id'}"/>
+                            <separator orientation="vertical"/>
+                            <filter string="Journal" icon="terp-folder-orange" domain="[]" context="{'group_by':'journal_id'}"/>
+                            <filter string="Employee Account" icon="terp-personal" domain="[]" context="{'group_by':'employee_account'}"/>
+                            <separator orientation="vertical"/>
+                            <filter string="State" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'state'}"/>
+                            <filter string="Company" icon="terp-go-home" domain="[]" context="{'group_by':'company_id'}"/>
+                        </group>
+                    </search>
+                </field>
+            </record>
+
+            <record model="ir.actions.act_window" id="action_account_advance">
+                <field name="name">Salary Advances Request</field>
+                <field name="res_model">salary.advance</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">tree,form</field>
+            </record>
+            <menuitem name="Staff Advances" parent="menu_cash_head" id="menu_open_salary_advance" sequence="5"/>
+            <menuitem name="Salary Advances" parent="menu_open_salary_advance" id="menu_open_salary_advance_child" sequence="5"/>
+            <menuitem parent="menu_open_salary_advance_child" sequence="1000" id="action_account_advance_menu" action="action_account_advance"/>
+
+            <record model="ir.actions.act_window" id="action_account_advance1">
+                <field name="name">Salary Advances to Approve</field>
+                <field name="res_model">salary.advance</field>
+                <field name="view_type">form</field>
+                <field name="context">{'search_default_cc': 1}</field>
+                <field name="view_mode">tree,form</field>
+            </record>
+
+            <menuitem parent="menu_open_salary_advance_child" groups="account_cash_advance.advance_manager" sequence="10001" id="action_account_advance_menu1" action="action_account_advance1"/>
+
+            <record model="ir.actions.act_window" id="action_account_advance_paid">
+                <field name="name">Salary Advance to Disbursement</field>
+                <field name="res_model">salary.advance</field>
+                <field name="view_type">form</field>
+                <field name="context">{'search_default_bb': 1}</field>
+                <field name="view_mode">tree,form</field>
+            </record>
+            <menuitem id="menu_finance_advance_salary_main0" name="Staff Advances" parent="account.menu_finance" sequence="3"/>
+            <menuitem id="menu_finance_advance_salary_main"  name="Salary Advances" parent="menu_finance_advance_salary_main0" sequence="3000"/>
+            <menuitem id="menu_finance_advance_salary" groups="account_cash_advance.advance_manager" name="Salary Advance to Disbursement" action="action_account_advance_paid" parent="menu_finance_advance_salary_main" sequence="1000"/>
+            <menuitem id="menu_finance_advance_salary" groups="account_cash_advance.advance_manager" name="Salary Advance to Disbursement" action="action_account_advance_paid" parent="menu_open_salary_advance_child" sequence="1000000"/>
+
+            <!-- Advance Payment Menu -->
+
+            <!--record model="ir.ui.view" id="view_vendor_receipt_form11">
+                <field name="name">account.voucher.receipt.form</field>
+                <field name="model">account.voucher</field>
+                <field name="arch" type="xml">
+                    <form string="Employee Payment">
+                        <header>
+                            <button name="cancel_voucher" string="Cancel" states="draft,proforma" invisible="context.get('line_type', False)"/>
+                            <button name="cancel_voucher" string="Unreconcile" type="object" states="posted" invisible="context.get('line_type', False)" confirm="Are you sure to unreconcile and cancel this record ?"/>
+                            <button name="action_cancel_draft" type="object" states="cancel" string="Set to Draft"  invisible="context.get('line_type', False)"/>
+                            <button name="proforma_voucher" string="Validate" states="draft"  class="oe_highlight" invisible="context.get('line_type', False)"/>
+                            <field name="state" widget="statusbar" statusbar_visible="draft,posted" statusbar_colors='{"proforma":"blue"}'/>
+                        </header>
+
+                        <group col="6" colspan="4">
+                            <field name="partner_id" required="1" invisible="context.get('line_type', False)" on_change="onchange_partner_id(partner_id, journal_id, amount, currency_id, type, date, context)" string="Employee" context="{'search_default_customer': 1}"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="amount"
+                                invisible="context.get('line_type', False)"
+                                string="Paid Amount"
+                                on_change="onchange_amount(amount, payment_rate, partner_id, journal_id, currency_id, type, date, payment_rate_currency_id, company_id, context)"/>
+                            <field name="journal_id"
+                                domain="[('type','in',['bank', 'cash'])]"
+                                invisible="context.get('line_type', False)"
+                                widget="selection" select="1"
+                                on_change="onchange_journal(journal_id, line_cr_ids, False, partner_id, date, amount, type, company_id, context)"
+                                string="Payment Method"/>
+                            <field name="date" select="1" invisible="context.get('line_type', False)" on_change="onchange_date(date, currency_id, payment_rate_currency_id, amount, company_id, context)"/>
+                            <field name="reference" select="1" invisible="context.get('line_type', False)" string="Payment Ref"/>
+                            <field name="name" colspan="2" invisible="context.get('line_type', False)"/>
+                            <field name="company_id" widget="selection" groups="base.group_multi_company"/>
+                            <field name="account_id"
+                                widget="selection"
+                                invisible="True"/>
+                            <field name="pre_line" invisible="1"/>
+                            <field name="type" invisible="True"/>
+                        </group>
+                        <notebook colspan="4">
+                            <page string="Payment Information">
+                                <field name="line_cr_ids" context="{'journal_id':journal_id, 'type':type, 'partner_id':partner_id}" colspan="4" nolabel="1" height="140" on_change="onchange_line_ids(line_dr_ids, line_cr_ids, amount, currency_id, context)">
+                                    <tree string="Invoices and outstanding transactions" editable="bottom" colors="gray:amount==0">
+                                        <field name="move_line_id" context="{'journal_id':parent.journal_id, 'partner_id':parent.partner_id}"
+                                            on_change="onchange_move_line_id(move_line_id)"
+                                            domain="[('account_id.type','in',('receivable','payable')), ('reconcile_id','=', False), ('partner_id','=',parent.partner_id)]"
+                                            required="1"
+                                            />
+                                        <field name="account_id"  groups="base.group_no_one" domain="[('type','=','receivable')]"/>
+                                        <field name="date_original" readonly="1"/>
+                                        <field name="date_due" readonly="1"/>
+                                        <field name="amount_original" readonly="1"/>
+                                        <field name="amount_unreconciled" readonly="1"/>
+                                        <field name="reconcile" on_change="onchange_reconcile(reconcile, amount, amount_unreconciled, context)"/>
+                                        <field name="amount" sum="Total Allocation" on_change="onchange_amount(amount, amount_unreconciled, context)" string="Allocation"/>
+                                    </tree>
+                                </field>
+                                <field name="line_dr_ids" colspan="4" nolabel="1" attrs="{'invisible': [('pre_line','=',False)]}" context="{'journal_id':journal_id, 'partner_id':partner_id}" on_change="onchange_line_ids(line_dr_ids, line_cr_ids, amount, currency_id, context)">
+                                    <tree string="Credits" editable="bottom" colors="gray:amount==0">
+                                        <field name="move_line_id" context="{'journal_id':parent.journal_id, 'partner_id':parent.partner_id}"
+                                            on_change="onchange_move_line_id(move_line_id)"
+                                            domain="[('account_id.type','in',('receivable','payable')), ('reconcile_id','=', False), ('partner_id','=',parent.partner_id)]"
+                                            required="1"
+                                            />
+                                        <field name="account_id"  groups="base.group_no_one" domain="[('type','=','receivable')]"/>
+                                        <field name="date_original" readonly="1"/>
+                                        <field name="date_due" readonly="1"/>
+                                        <field name="amount_original" readonly="1"/>
+                                        <field name="amount_unreconciled" readonly="1"/>
+                                        <field name="reconcile" on_change="onchange_reconcile(reconcile, amount, amount_unreconciled, context)"/>
+                                        <field name="amount" sum="Total Allocation" on_change="onchange_amount(amount, amount_unreconciled, context)" string="Allocation"/>
+                                    </tree>
+                                </field>
+                                <group col="2" colspan="3">
+                                    <separator string="Internal Notes" colspan="2"/>
+                                    <field name="narration" colspan="2" nolabel="1"/>
+                                </group>
+                                <group col="2" colspan="1">
+                                    <group col="4" colspan="1" attrs="{'invisible':[('currency_id','=',False),('is_multi_currency','=',False)]}">
+                                        <group>
+                                        <separator string="Currency Options" colspan="4"/>
+                                        <field name="is_multi_currency" invisible="1"/>
+                                        <field name="payment_rate" required="1" on_change="onchange_rate(payment_rate, amount, currency_id, payment_rate_currency_id, company_id, context)"  colspan="3"/>
+                                        <field name="payment_rate_currency_id"  colspan="1" nolabel="1" on_change="onchange_payment_rate_currency(currency_id, payment_rate, payment_rate_currency_id, date, amount, company_id, context)"/>
+                                        <field name="paid_amount_in_company_currency"  colspan="4" invisible="1"/>
+                                                                            </group>
+
+                                    </group>
+                                    <group col="2" colspan="1">
+                                        <separator string="Payment Options" colspan="2"/>
+                                        <field name="writeoff_amount"/>
+                                        <field name="payment_option" required="1"/>
+                                        <field name="writeoff_acc_id"
+                                               attrs="{'invisible':[('payment_option','!=','with_writeoff')], 'required':[('payment_option','=','with_writeoff')]}"
+                                                  />
+                                        <field name="comment"
+                                               attrs="{'invisible':[('payment_option','!=','with_writeoff')]}"/>
+                                        <field name="analytic_id"
+                                               groups="analytic.group_analytic_accounting"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Journal Items" attrs="{'invisible': [('state','!=','posted')]}">
+                                <group col="6" colspan="4">
+                                    <field name="period_id"/>
+                                    <field name="audit"/>
+                                </group>
+                                <field name="number" colspan="4"/>
+                                <field name="move_ids" colspan="4" nolabel="1" readonly="1">
+                                   <tree string="Journal Items">
+                                       <field name="move_id"/>
+                                       <field name="ref"/>
+                                       <field name="date"/>
+                                       <field name="statement_id"/>
+                                       <field name="partner_id"/>
+                                       <field name="account_id"/>
+                                       <field name="name"/>
+                                       <field name="debit"/>
+                                       <field name="credit"/>
+                                       <field name="state"/>
+                                       <field name="reconcile_id"/>
+                                       <field name="amount_currency"/>
+                                       <field name="currency_id"/>
+                                   </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </form>
+                </field>
+            </record>
+
+            <record id="view_voucher_filter_customer_pay11" model="ir.ui.view">
+                <field name="name">account.voucher.employee.pay.select</field>
+                <field name="model">account.voucher</field>
+                <field name="arch" type="xml">
+                    <search string="Search Vouchers">
+                        <group>
+                            <filter icon="terp-document-new" string="Draft" domain="[('state','=','draft')]" help="Draft Vouchers"/>
+                            <filter icon="terp-camera_test" string="Posted" domain="[('state','=','posted')]" help="Posted Vouchers"/>
+                            <separator orientation="vertical"/>
+                            <filter icon="terp-gtk-jump-to-ltr" string="To Review" domain="[('state','=','posted')]" help="To Review"/>
+                            <separator orientation="vertical"/>
+                            <field name="date"/>
+                            <field name="number"/>
+                            <field name="partner_id" string="Employee"/>
+                        </group>
+                        <newline/>
+                        <group>
+                            <field name="journal_id" widget="selection" context="{'journal_id': self, 'set_visible':False}" domain="[('type','in',('bank','cash'))]"/>
+                            <field name="period_id" />
+                        </group>
+                       <newline/>
+                        <group expand="0" string="Group By...">
+                            <filter string="Employee" icon="terp-personal" domain="[]" context="{'group_by':'partner_id'}"/>
+                            <filter string="Journal" icon="terp-folder-orange" domain="[]" context="{'group_by':'journal_id'}"/>
+                            <filter string="Period" icon="terp-go-month" domain="[]" context="{'group_by':'period_id','visible':True}"/>
+                            <filter string="State" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'state'}"/>
+                        </group>
+                    </search>
+                </field>
+            </record>
+
+            <record model="ir.ui.view" id="view_voucher_tree1">
+                <field name="name">account.voucher.tree</field>
+                <field name="model">account.voucher</field>
+                <field name="arch" type="xml">
+                    <tree colors="blue:state == 'draft';gray:state == 'cancel';red:audit" string="Voucher Entries">
+                        <field name="date"/>
+                        <field name="number"/>
+                        <field name="reference"/>
+                        <field name="partner_id" string="Employee"/>
+                        <field name="journal_id"/>
+                        <field name="period_id" invisible="context.get('visible', True)"/>
+                        <field name="type" invisible="context.get('visible', True)"/>
+                        <field name="amount" sum="Total Amount"/>
+                        <field name="audit"/>
+                        <field name="state"/>
+                        <button name="proforma_voucher" string="Post" states="draft" icon="terp-document-new"/>
+                    </tree>
+                </field>
+            </record>
+
+             <record id="action_salary_repayment" model="ir.actions.act_window">
+                <field name="name">Advance Repayment</field>
+                <field name="res_model">account.voucher</field>
+                <field name="view_type">form</field>
+                <field name="domain">[('journal_id.type', 'in', ['bank', 'cash']), ('type','=','receipt')]</field>
+                <field name="context">{'type':'receipt'}</field>
+                <field name="search_view_id" ref="view_voucher_filter_customer_pay11"/>
+                <field name="view_id" eval="view_voucher_tree1"/>
+                <field name="target">current</field>
+            </record>
+
+            <record id="action_advance_receipt_tree" model="ir.actions.act_window.view">
+                <field eval="1" name="sequence"/>
+                <field name="view_mode">tree</field>
+                <field name="view_id" ref="view_voucher_tree1"/>
+                <field name="act_window_id" ref="action_salary_repayment"/>
+            </record>
+
+            <record id="action_advance_receipt_form" model="ir.actions.act_window.view">
+                <field eval="2" name="sequence"/>
+                <field name="view_mode">form</field>
+                <field name="view_id" ref="view_vendor_receipt_form11"/>
+                <field name="act_window_id" ref="action_salary_repayment"/>
+            </record>
+
+            <menuitem action="action_salary_repayment" id="salary_advance_menu_payment" parent="menu_finance_advance_salary_main0" name="Advance Repayment" sequence="100100" />
+
+            <menuitem action="action_salary_repayment" id="salary_advance_menu_payment" parent="menu_open_salary_advance_child" name="Advance Repayment" sequence="1001000000" /-->
+
+            <menuitem action="account.action_account_payments" id="salary_advance_menu_payment" parent="menu_open_salary_advance_child" name="Advance Repayment" sequence="1001000000" />
+            <!-- Employee -->
+
+             <record id="employee_extd_form_advance" model="ir.ui.view">
+                <field name="name">loan.employee.salary.form</field>
+                <field name="model">hr.employee</field>
+                <field name="inherit_id" ref="hr.view_employee_form"/>
+                <field name="arch" type="xml">
+    <!--                <page string="HR Settings" position="before"-->
+                        <xpath expr="//notebook" position="inside">
+                            <page string="Salary Advances Policies">
+                                <group  col="4" colspan="4">
+                                    <field name="salary_advance_policy" height="360" nolabel="1" colspan="4"></field>
+                                </group>
+                            </page>
+                            <page string="Salary Advances">
+                            <group  col="4" colspan="4">
+                                <field name="salary_ids" height="360" nolabel="1" colspan="4"></field>
+                            </group>
+                        </page>
+                        </xpath>
+
+    <!--                </page-->
+                </field>
+            </record>
+
+            <record id="salary_advance_employee_categ_form" model="ir.ui.view">
+                <field name="name">emp.category.form</field>
+                <field name="model">hr.employee.category</field>
+                <field name="inherit_id" ref="hr.view_employee_category_form"/>
+                <field name="arch" type="xml">
+                    <xpath expr="//field[@name='name']" position="after">
+                        <separator string="Salary Advance Policies" colspan="4"/>
+                        <field name="salary_advance_policy" nolabel="1" colspan="4"/>
+                    </xpath>
+                </field>
+            </record>
+
+        </data>
+    </odoo>

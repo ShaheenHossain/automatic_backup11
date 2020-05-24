@@ -1,0 +1,58 @@
+<odoo>
+    <data>
+
+         <record id="view_discharge_order" model="ir.ui.view">
+            <field name="name">discharge.order</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="is_discharge" invisible="1"/>
+                    <field name="delivery_station" attrs="{'invisible':[('is_discharge', '=', False)]}"/>
+                </field>
+
+                <xpath expr="//field[@name='order_line']/form/group/group/field[@name='price_unit']" position="before">
+                    <field name="loading_ticket" options="{'no_create': True}" attrs="{'invisible':[('is_discharge', '=', False)]}"/>
+                    <field name="is_discharge" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="before">
+                    <field name="loading_ticket" options="{'no_create': True}" attrs="{'invisible':[('is_discharge', '=', False)]}"/>
+                    <field name="is_discharge" invisible="1"/>
+                </xpath>
+
+
+            </field>
+        </record>
+
+
+         <record id="view_discharge_filter" model="ir.ui.view">
+            <field name="name">discharge.filter</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+            <field name="arch" type="xml">
+                <field name="product_id" position="after">
+                    <field name="is_discharge"/>
+                </field>
+                <filter name="my_sale_orders_filter" position="after">
+                    <filter string="Discharge Operations" name="is_discharge" domain="[('is_discharge', '=', True)]"/>
+                </filter>
+            </field>
+         </record>
+
+
+
+        <record model="ir.actions.act_window" id="station_discharge_action">
+            <field name="name">Discharge Operations</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="context">{'default_is_discharge':'True', 'search_default_is_discharge':1,
+                'default_normal_sales_order': False}</field>
+            <field name="view_mode">tree,kanban,form,pivot,graph</field>
+        </record>
+
+        <menuitem id="station_discharge_operation" name="Discharge Operation"
+                  parent="station_purchase_menu" action="station_discharge_action" sequence="10"
+                  groups="ng_station_operations.group_discharge_menu"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+	
+		<record id="view_addition_invoice" model="ir.ui.view">
+			<field name="name">Invoice Prepayment</field>
+			<field name="model">invoice.addition</field>
+			<field name="arch" type="xml">
+				<form string="Create invoice">
+					<separator colspan="4" string="Create invoice" />
+					<group>
+						<field name="journal_id" />
+					</group>
+					<footer>
+						<button name="open_invoice" string="Create" class="oe_highlight" type="object" />
+						or
+						<button special="cancel" class="oe_link" string="_Cancel" />
+					</footer>
+				</form>
+			</field>
+		</record>
+
+		<act_window 
+			name="Create invoice" 
+			res_model="invoice.addition"
+			src_model="account.prepayment" 
+			key2="client_action_multi" multi="False"
+			view_mode="form" 
+			view_type="form" 
+			target="new" 
+			id="action_invoice_prepayment" />
+			
+	</data>
+</odoo>

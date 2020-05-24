@@ -1,0 +1,62 @@
+<odoo>
+    <data>
+
+
+        <record id="view_concession_order" model="ir.ui.view">
+            <field name="name">return.concession.order</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="return_concession" invisible="1"/>
+                </field>
+
+
+                <xpath expr="//field[@name='order_line']/form/group/group/field[@name='price_unit']" position="replace">
+                    <field name="price_unit" attrs="{'invisible':[('return_concession', '=', True)]}"/>
+                </xpath>
+
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="replace">
+                    <field name="price_unit" attrs="{'invisible':[('return_concession', '=', True)]}"/>
+                </xpath>
+
+                <xpath expr="//field[@name='order_line']/form/group/group/field[@name='price_unit']" position="before">
+                    <field name="return_concession" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="before">
+                    <field name="return_concession" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="view_returns_concession_filter" model="ir.ui.view">
+            <field name="name">returns.filter</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+            <field name="arch" type="xml">
+                <field name="product_id" position="after">
+                    <field name="return_concession"/>
+                </field>
+                <filter name="my_sale_orders_filter" position="after">
+                    <filter string="Returns" name="return_concession" domain="[('return_concession', '=', True)]"/>
+                </filter>
+            </field>
+         </record>
+
+
+
+        <record model="ir.actions.act_window" id="return_concession_action">
+            <field name="name">Returns</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="context">{'default_return_concession':'True', 'search_default_return_concession':1}</field>
+            <field name="view_mode">tree,kanban,form,pivot,graph</field>
+        </record>
+
+
+        <menuitem id="return_concession_order" name="Return Consigned Product" parent="menu_sale_concession"
+                  action="return_concession_action" sequence="40"/>
+         <!-- End of  All Sales Menu -->
+    </data>
+</odoo>

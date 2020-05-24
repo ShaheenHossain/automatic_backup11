@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_salary_advance_manager,employee_salary_advance_manager,model_salary_advance,advance_manager,1,1,1,1
+access_salary_advance,employee_salary_advance,model_salary_advance,base.group_user,1,1,1,0
+access_cash_advance_manager,employee_cash_advance_manager,model_cash_advance,advance_manager,1,1,1,1
+access_cash_advance,employee_cash_advance,model_cash_advance,base.group_user,1,1,1,0
+access_ret_expense_advance_manager,employee_ret_expense_advance_manager,model_ret_expense,advance_manager,1,1,1,1
+access_ret_expense_advance,employee_ret_expense_advance,model_ret_expense,base.group_user,1,1,1,0
+access_ret_expense_line_advance_manager,employee_ret_expense_line_advance_manager,model_ret_expense_line,advance_manager,1,1,1,1
+access_ret_expense_line,employee_ret_expense_line,model_ret_expense_line,base.group_user,1,1,1,0
+access_salary_advance_policy_advance_manager,employee_salary_advance_policy_manager,model_salary_advance_policy,advance_manager,1,1,1,1
+access_refund_advance_manager,employee_refund_refund_manager,model_refund_advance,advance_manager,1,1,1,1
+access_refund_advance,employee_refund_advance,model_refund_advance,base.group_user,1,1,1,0
+access_reconcile,ret.expense.reconcile,model_ret_expense_reconcile,base.group_user,1,1,1,0
+access_reconcile_refund,ret.expense.reconcile.refund,model_refund_line,base.group_user,1,1,1,0
+access_reconcile_mgr,ret.expense.reconcile,model_ret_expense_reconcile,advance_manager,1,1,1,1

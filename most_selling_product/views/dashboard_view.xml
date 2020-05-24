@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="top_sellng_view_report_tree">
+        <field name="name">top.selling.view.report</field>
+        <field name="model">top.selling.view.report</field>
+        <field name="arch" type="xml">
+            <tree string="Top Selling" create="false"
+                default_order="product_qty_out">
+                <field name="product_id" />
+                <field name="location_id" />
+                <field name="product_qty_out" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="top_sellng_view_report_dashboardsearch">
+        <field name="name">top.selling.view.report</field>
+        <field name="model">top.selling.view.report</field>
+        <field name="arch" type="xml">
+            <search string="Top Selling Activity">
+                <field name="product_id" />
+                <field name="location_id" />
+                <field name="product_qty_out" />
+                <separator />
+                <group expand="1" string="Group By">
+                    <filter string="Product" name="products"
+                        domain="[]" context="{'group_by':'product_id'}" />
+                    <filter string="Location" name="locations"
+                        domain="[]" context="{'group_by':'location_id'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="top_sellng_view_dashboard_action">
+        <field name="name">DashBoard View(BY PRODUCT)</field>
+        <field name="res_model">top.selling.view.report</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+        <field name="context">{'search_default_products': 1}</field>
+        <field name="view_id" ref="top_sellng_view_report_tree" />
+        <field name="search_view_id" ref="top_sellng_view_report_dashboardsearch" />
+    </record>
+
+    <record model="ir.actions.act_window" id="top_sellng_view_lc_dashboard_action">
+        <field name="name">DashBoard View(BY Location)</field>
+        <field name="res_model">top.selling.view.report</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+        <field name="context">{'search_default_locations': 1}</field>
+        <field name="view_id" ref="top_sellng_view_report_tree" />
+        <field name="search_view_id" ref="top_sellng_view_report_dashboardsearch" />
+    </record>
+
+    <record id="top_selling_dashboard" model="ir.ui.view">
+        <field name="name">top.sellng.dashboard(MAIN BORAD)</field>
+        <field name="model">board.board</field>
+        <field name="arch" type="xml">
+            <form string="Manager Board">
+                <board style="2-1">
+                    <column>
+                        <action name="%(top_sellng_view_dashboard_action)d"
+                            string="By Products" view_mode="list"/>
+                    </column>
+                    <column>
+                        <action
+                            name="%(top_sellng_view_lc_dashboard_action)d"
+                            string="By Locations" view_mode="list"/>
+                    </column>
+                </board>
+            </form>
+        </field>
+    </record>
+
+    <record id="top_selling_dashboard_action" model="ir.actions.act_window">
+        <field name="name">Dashboard</field>
+        <field name="res_model">board.board</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="top_selling_dashboard" />
+    </record>
+
+</odoo>

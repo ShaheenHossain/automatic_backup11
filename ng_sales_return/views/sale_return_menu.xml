@@ -1,0 +1,51 @@
+<odoo>
+    <data>
+
+        <menuitem name="Sales or Return" id="menu_sale_return_root"  groups="base.group_user" sequence="200"/>
+
+        <menuitem id="menu_purchase_sale_return" name="Purchase" parent="menu_sale_return_root" sequence="10"/>
+
+        <menuitem id="menu_sale_sale_return" name="Sales" parent="menu_sale_return_root" sequence="20"/>
+
+
+
+        <record model="ir.actions.act_window" id="sale_return_purchase_order_action">
+            <field name="name">Receive</field>
+            <field name="res_model">purchase.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form,pivot,graph</field>
+        </record>
+
+
+        <record id="view_purchase_product_type" model="ir.ui.view">
+            <field name="name">purchase.vehicle</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']"  position="replace">
+                    <field name="price_unit"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <menuitem id="sale_return_purchase_order" name="Receive Product"
+                  parent="menu_purchase_sale_return" action="sale_return_purchase_order_action" sequence="40"/>
+
+
+
+        <record model="ir.actions.act_window" id="sales_return_order_action">
+            <field name="name">Sales Order</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form,pivot,graph</field>
+        </record>
+
+
+        <menuitem id="sale_return_order" name="Sale Orders" parent="menu_sale_sale_return" action="sales_return_order_action" sequence="20"/>
+         <!-- End of  All Sales Menu -->
+
+
+
+    </data>
+</odoo>

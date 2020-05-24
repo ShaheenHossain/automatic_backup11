@@ -1,0 +1,9 @@
+<odoo>
+    <data>
+
+        <menuitem id="station_config_menu" name="Configuration" sequence="20" parent="station_operation_top_menu"/>
+
+
+
+    </data>
+</odoo>

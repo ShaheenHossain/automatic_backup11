@@ -1,0 +1,39 @@
+<odoo>
+    <data>
+
+        <menuitem name="Concession Product" id="menu_concession_product_root"  groups="base.group_user" sequence="200"/>
+
+        <menuitem id="menu_purchase_concession" name="Purchase" parent="menu_concession_product_root" sequence="10"/>
+
+        <menuitem id="menu_sale_concession" name="Sales" parent="menu_concession_product_root" sequence="20"/>
+
+
+
+        <record model="ir.actions.act_window" id="concession_purchase_order_action">
+            <field name="name">Receive</field>
+            <field name="res_model">purchase.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form,pivot,graph</field>
+        </record>
+
+
+        <menuitem id="concession_purchase_order" name="Receive Product"
+                  parent="menu_purchase_concession" action="concession_purchase_order_action" sequence="40"/>
+
+
+
+        <record model="ir.actions.act_window" id="concession_order_action">
+            <field name="name">Sales Order</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form,pivot,graph</field>
+        </record>
+
+
+        <menuitem id="concession_order" name="Sale Orders" parent="menu_sale_concession" action="concession_order_action" sequence="20"/>
+         <!-- End of  All Sales Menu -->
+
+
+
+    </data>
+</odoo>

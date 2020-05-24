@@ -1,0 +1,115 @@
+<odoo>
+    <data>
+
+        <!-- Dispenser Form View -->
+        <record id="dispenser_form_view" model="ir.ui.view">
+            <field name="name">Dispenser Configuration</field>
+            <field name="model">create.dispenser</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name" invisible="1"/>
+                            <field name="dispenser_name"/>
+                            <field name="related_pump"/>
+                            <field name="related_product"/>
+                            <field name="related_tank"/>
+                            <field name="company_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Dispenser Tree View -->
+        <record id="dispenser_tree_view" model="ir.ui.view">
+            <field name="name">Dispenser Configuration</field>
+            <field name="model">create.dispenser</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="dispenser_name"/>
+                    <field name="related_pump"/>
+                    <field name="related_product"/>
+                    <field name="related_tank"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- Dispenser Action Menu  -->
+        <record model="ir.actions.act_window" id="dispenser_config_action">
+            <field name="name">Dispenser Configuration</field>
+            <field name="res_model">create.dispenser</field>
+            <field name="view_type">form</field>
+            <field name="view_model">form,tree</field>
+        </record>
+         <!-- End Dispensers -->
+
+
+
+
+
+
+        <!-- Dispenser Readings Form View -->
+        <record id="dispenser_reading_form_view" model="ir.ui.view">
+            <field name="name">Dispenser Reading</field>
+            <field name="model">create.dispenser.readings</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="date"/>
+                            <field name="related_pump"/>
+                            <field name="related_product"/>
+                        </group>
+                        <group>
+                            <field name="opening_meter_reading"/>
+                            <field name="closing_meter_reading"/>
+                            <field name="meter_reading_difference"/>
+                            <field name="company_id"/>
+                        </group>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Dispenser Tree View -->
+        <record id="dispenser_reading_tree_view" model="ir.ui.view">
+            <field name="name">Dispenser Reading</field>
+            <field name="model">create.dispenser.readings</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="date"/>
+                    <field name="name"/>
+                    <field name="related_pump"/>
+                     <field name="opening_meter_reading"/>
+                    <field name="closing_meter_reading"/>
+                    <field name="meter_reading_difference"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- Dispenser Action Menu  -->
+        <record model="ir.actions.act_window" id="dispenser_reading_action">
+            <field name="name">Dispenser Reading</field>
+            <field name="res_model">create.dispenser.readings</field>
+            <field name="view_type">form</field>
+            <field name="view_model">form,tree</field>
+        </record>
+         <!-- End Dispensers -->
+
+
+
+         <menuitem id="dispenser" name="Dispenser/Nozzle" parent="station_config_menu"
+                   action="dispenser_config_action" sequence="30" groups="ng_station_operations.group_manager"/>
+        <menuitem id="dispenser_readings" name="Dispenser Readings" parent="station_config_menu"
+                  action="dispenser_reading_action" sequence="40" groups="ng_station_operations.group_manager"/>
+
+
+
+    </data>
+</odoo>

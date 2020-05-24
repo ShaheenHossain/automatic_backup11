@@ -1,0 +1,86 @@
+<odoo>
+    <data>
+
+
+        <record id="view_sale_return_order" model="ir.ui.view">
+            <field name="name">return.consigned.order</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="return_product" invisible="1"/>
+                </field>
+
+                <!--<field name="partner_id" position="replace">-->
+                    <!--<field name="partner_id" string="Consignor"-->
+                           <!--domain="[('customer','=',True)]"-->
+                           <!--context="{'search_default_customer':1, 'show_address': 1}"-->
+                           <!--options='{"always_reload": True}'-->
+                           <!--attrs="{'invisible':[('return_product', '=', False)]}"/>-->
+                    <!--<field name="partner_id" string="Customer"-->
+                           <!--domain="[('customer','=',True)]"-->
+                           <!--context="{'search_default_customer':1, 'show_address': 1}"-->
+                           <!--options='{"always_reload": True}'-->
+                           <!--attrs="{'invisible':[('return_product', '=', True)]}"/>-->
+                <!--</field>-->
+
+
+                <xpath expr="//field[@name='order_line']/form/group/group/field[@name='price_unit']" position="replace">
+                    <field name="price_unit" attrs="{'invisible':[('return_product', '=', True)]}"/>
+                </xpath>
+
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="replace">
+                    <field name="price_unit" attrs="{'invisible':[('return_product', '=', True)]}"/>
+                </xpath>
+
+                <xpath expr="//field[@name='order_line']/form/group/group/field[@name='price_unit']" position="before">
+                    <field name="return_product" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="before">
+                    <field name="return_product" invisible="1"/>
+                </xpath>
+
+                <!--<xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d'][1]" position="after">-->
+                    <!--<button name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice"-->
+                    <!--type="action" context="{'default_advance_payment_method': 'percentage'}"-->
+                    <!--attrs="{'invisible': ['|','|',('invoice_status', '!=', 'no'), ('state', '!=', 'sale'), ('return_product', '==', True)]}"/>-->
+
+                <!--</xpath>-->
+
+                <!--<xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d'][1]" position="attributes">-->
+                    <!--<attribute name="attrs">{'invisible':[('return_product', '==', True)]}</attribute>-->
+                <!--</xpath>-->
+            </field>
+        </record>
+
+
+        <record id="view_returns_filter" model="ir.ui.view">
+            <field name="name">returns.filter</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+            <field name="arch" type="xml">
+                <field name="product_id" position="after">
+                    <field name="return_product"/>
+                </field>
+                <filter name="my_sale_orders_filter" position="after">
+                    <filter string="Returns" name="return_product" domain="[('return_product', '=', True)]"/>
+                </filter>
+            </field>
+         </record>
+
+
+
+        <record model="ir.actions.act_window" id="return_consigned_action">
+            <field name="name">Returns</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="context">{'default_return_product':'True', 'search_default_return_product':1}</field>
+            <field name="view_mode">tree,kanban,form,pivot,graph</field>
+        </record>
+
+
+        <menuitem id="return_consigned_order" name="Return Consigned Product" parent="menu_sale_sale_return"
+                  action="return_consigned_action" sequence="40"/>
+         <!-- End of  All Sales Menu -->
+    </data>
+</odoo>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Pricing Template Tree View -->
+        <record id='pricing_template_tree_view' model='ir.ui.view'>
+            <field name='name'>pricing.template.tree.view</field>
+            <field name='model'>pricing.template</field>
+            <field name='arch' type='xml'>
+                <tree string="Pricing Template">
+                    <field name='name'/>
+                    <field name="description"/>
+                    <field name="unit_price"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Pricing Template Form View -->
+        <record id='pricing_template_form_view' model='ir.ui.view'>
+            <field name='name'>pricing.template.form.view</field>
+            <field name='model'>pricing.template</field>
+            <field name='arch' type='xml'>
+                <form string="Pricing Template">
+                    <group>
+                        <field name="name"/>
+                        <field name="description"/>
+                        <field name="unit_price"/>
+                        <field name="location_type"/>
+                        <field name="company_id" invisible="1"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action to Open Pricing Template -->
+        <record id='pricing_template_action' model='ir.actions.act_window'>
+            <field name='name'>Pricing Template</field>
+            <field name='res_model'>pricing.template</field>
+            <field name='type'>ir.actions.act_window</field>
+            <field name='view_mode'>tree,form</field>
+            <field name='help'>You can create pricing templates here</field>
+        </record>
+
+        <!-- Menu for Pricing Template -->
+        <menuitem id="pricing_template_menu" name="Create Template" parent="fleet.fleet_configuration" action="pricing_template_action" />
+
+    </data>
+</odoo>

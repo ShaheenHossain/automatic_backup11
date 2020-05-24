@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="group_most_selling_products" model="res.groups">
+        <field name="name">Most Selling Products Features</field>
+    </record>
+
+    <record id="top_selling_wizard" model="ir.model.access">
+        <field name="name">top_selling_wizard</field>
+        <field name="model_id"
+            ref="most_selling_product.model_top_selling_report" />
+        <field name="group_id" ref="group_most_selling_products" />
+        <field name="perm_read" eval="1" />
+        <field name="perm_create" eval="1" />
+        <field name="perm_write" eval="1" />
+        <field name="perm_unlink" eval="1" />
+    </record>
+
+    <record id="top_selling_view_report" model="ir.model.access">
+        <field name="name">top_selling_view_report</field>
+        <field name="model_id"
+            ref="most_selling_product.model_top_selling_view_report" />
+        <field name="group_id" ref="group_most_selling_products" />
+        <field name="perm_read" eval="1" />
+        <field name="perm_create" eval="1" />
+        <field name="perm_write" eval="1" />
+        <field name="perm_unlink" eval="1" />
+    </record>
+
+    <record id="autoschedule_tsp" model="ir.model.access">
+        <field name="name">autoschedule_tsp</field>
+        <field name="model_id" ref="most_selling_product.model_autoschedule_tsp" />
+        <field name="group_id" ref="group_most_selling_products" />
+        <field name="perm_read" eval="1" />
+        <field name="perm_create" eval="1" />
+        <field name="perm_write" eval="1" />
+        <field name="perm_unlink" eval="1" />
+    </record>
+
+</odoo>

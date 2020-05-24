@@ -1,0 +1,4 @@
+tr > td[class='pos-right-align']{
+    text-align: left !important;
+    overflow-x: hidden;
+}

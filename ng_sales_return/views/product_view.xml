@@ -1,0 +1,73 @@
+<odoo>
+    <data>
+        <record id="view_product_sale_return" model="ir.ui.view">
+            <field name="name">sale.return.product</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <field name="list_price" position="before">
+                    <field name="partner_id" attrs="{'required': [('concession_sor','==', 'sor')],
+                    'invisible': [('concession_sor','==', False)]}"/>
+                </field>
+
+            </field>
+         </record>
+
+
+
+        <record id="view_res_inherit_search" model="ir.ui.view">
+              <field name="name">product.template.filter</field>
+              <field name="model">product.template</field>
+              <field name="inherit_id" ref="product.product_template_search_view"/>
+              <field name="arch" type="xml">
+                <xpath expr="//search" position="inside">
+                    <filter string="SOR Product" name="sor" domain="[('concession_sor', '=', 'sor')]" context="{'sor': '1'}"/>
+                </xpath>
+              </field>
+        </record>
+
+        <record id="view_kanban_product" model="ir.ui.view">
+            <field name="name">kanban.product</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_kanban_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//kanban/templates/t/div/div[2]/ul" position="after">
+                    <strong><field name="concession_sor"/></strong><small t-if="record.concession_sor.value"> (<field name="concession_sor"/>)</small><br/>
+                    <small t-if="record.partner_id.name"><strong t-if="record.partner_id.value">Vendor: </strong><field name="partner_id"/></small>
+                </xpath>
+            </field>
+         </record>
+
+
+        <record id="view_sor_product_cat" model="ir.ui.view">
+            <field name="name">product.cat</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="arch" type="xml">
+               <group name="first" position="after">
+                    <group string="SOR Accounts">
+                        <field name="sor_income_account"/>
+                    </group>
+                </group>
+            </field>
+         </record>
+
+
+        <record model="ir.actions.act_window" id="sale_return_product_action">
+            <field name="name">Product</field>
+            <field name="res_model">product.template</field>
+            <field name="view_type">form</field>
+             <field name="context" eval="{'search_default_sor': 1}"/>
+            <field name="view_mode">kanban,tree,form</field>
+        </record>
+
+
+
+        <menuitem id="sale_return_product" name="Product" parent="menu_purchase_sale_return"
+                  action="sale_return_product_action" sequence="10"/>
+
+
+
+
+    </data>
+</odoo>

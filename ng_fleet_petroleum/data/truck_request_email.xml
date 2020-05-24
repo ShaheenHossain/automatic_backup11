@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="notification_truck_request" model="mail.template">
+            <field name="name">Trucking Request Email</field>
+            <field name="model_id" ref="model_truck_request"/>
+            <field name="subject">Request for Truck</field>
+            <field name="auto_delete" eval="True"/>
+            <field name="email_from">${object.requester.email}</field>
+            <field name="email_to">${ctx.get('recipient_email')}</field>
+            <field name="body_html">
+                <![CDATA[
+                <div style="font-family: 'Times New Roma', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: #000000; background-color: #ffffff; ">
+                    <h3>Dear ${ctx.get('recipient_name')},</h3>
+                    <p> &nbsp; &nbsp; &nbsp; &nbsp; ${object.name} was submitted for your approval.</p>
+                    <p><h3><a href=${ctx.get('url')}>Click here to see the request</a></h3></p>
+                    <p >Thank you.</p>
+                    <p>Regards,<br/>
+                    ${(object.requester.name)}</p>
+                </div>                
+                ]]>    
+            </field>
+        </record>
+    </data>
+</odoo>

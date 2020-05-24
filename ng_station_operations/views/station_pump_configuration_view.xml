@@ -1,0 +1,48 @@
+<odoo>
+    <data>
+        <record id="pump_form_view" model="ir.ui.view">
+			<field name="name">Pump Configuration</field>
+			<field name="model">pump.config</field>
+			<field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name = "name"/>
+                            <field name = "related_storage_tank"/>
+                            <field name = "related_product" domain="[('is_petroleum','=','True')]"/>
+                            <field name="company_id"/>
+                        </group>
+                        <field name="related_dispenser"/>
+                    </sheet>
+                </form>
+			</field>
+		</record>
+
+         <record id="pump_tree_view" model="ir.ui.view">
+			<field name="name">Pump Configuration</field>
+			<field name="model">pump.config</field>
+			<field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name = "related_product"/>
+                    <field name = "related_storage_tank"/>
+                </tree>
+			</field>
+		</record>
+
+
+        <record model="ir.actions.act_window" id="pump_config_action">
+            <field name="name">Pump Configuration</field>
+            <field name="res_model">pump.config</field>
+            <field name="view_type">form</field>
+            <field name="view_model">form,tree</field>
+            <field name="view_id" ref="pump_tree_view"/>
+        </record>
+
+
+        <menuitem id="pump_config" name="Pumps" parent="station_config_menu"
+                  action="pump_config_action" sequence="20" groups="ng_station_operations.group_manager"/>
+
+
+    </data>
+</odoo>

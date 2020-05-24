@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Create a dropdown menu in the user form-->
+        <record model="ir.module.category" id="fleet_request_groups">
+            <field name="name">Fleet Services</field>
+            <field name="description">Access Level for Trucking Operations</field>
+        </record>
+
+        <!-- Fleet User Station-->
+        <record id="truck_user_station" model="res.groups">
+            <field name="name">Station User</field>
+            <field name="implied_ids" eval="[(4, ref('fleet.fleet_group_user'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+            <field name="category_id" ref="fleet_request_groups"/>
+        </record>
+
+        <!-- Fleet User From HQ-->
+        <record id="truck_requester_hq" model="res.groups">
+            <field name="name">Requester HQ</field>
+            <field name="implied_ids" eval="[(4, ref('fleet.fleet_group_user'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+            <field name="category_id" ref="fleet_request_groups"/>
+        </record>
+
+        <!-- Trucking Manager -->
+        <record id="truck_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="implied_ids" eval="[(4, ref('fleet.fleet_group_manager'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+            <field name="category_id" ref="fleet_request_groups"/>
+        </record>
+
+    </data>
+</odoo>

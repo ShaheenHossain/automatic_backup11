@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+payroll_adjustment_officer,payroll.adjustment,model_payroll_adjustment,hr.group_hr_user,1,1,1,1
+adjustment_type_line_officer,adjustment.type.line,model_adjustment_type_line,hr.group_hr_user,1,1,1,1
+adjustment_type_officer,adjustment.type,model_adjustment_type,hr.group_hr_user,1,1,1,1
+adjustment_type_user,adjustment.type.employee,model_adjustment_type,base.group_user,1,0,0,0
+

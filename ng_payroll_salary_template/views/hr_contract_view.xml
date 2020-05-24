@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+       <!-- Add the new contract parameters on the contract form -->
+        <record model="ir.ui.view" id="contract_view_form_extend">
+            <field name="name">contract.view.form.extend</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="model">hr.contract</field>
+            <field name="arch" type="xml">
+
+                <xpath expr="//sheet//field[@name='job_id']" position="after">
+                    <!--<field name="department_sector_id" readonly="0" />
+                    <field name="grade_id" readonly="0" />
+                    <field name="step_id" readonly="0" />-->
+                    <field name="template_id"/>
+                </xpath>
+
+                <xpath expr="//notebook" position="inside">
+                    <page string="Additional Contract Fields">
+                        <group>
+                            <group>
+                                <field name="basic"/>
+                                <field name="housing"/>
+                                <field name="leave_allowance"/>
+                                <field name="furniture"/>
+                                <field name="utility"/>
+                                <field name="transport"/>
+                                <field name="meal"/>
+                                <field name="extra"/>
+                            </group>
+                            <group>
+                                <field name="travelling"/>
+                                <field name="others"/>
+                                <field name="domestic"/>
+                                <field name="rural_posting"/>
+                                <field name="shift_allowance"/>
+                                <field name="hazard"/>
+                                <field name="call_duty_all"/>
+                                <field name="extra_two"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

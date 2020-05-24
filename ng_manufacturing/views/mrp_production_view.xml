@@ -1,0 +1,48 @@
+<odoo>
+    <data>
+        <record id="mrp_production_form_view_cost_wc" model="ir.ui.view">
+			<field name="name">mrp.production.form</field>
+			<field name="model">mrp.production</field>
+			<field name="inherit_id" ref="mrp.mrp_production_form_view" />
+			<field name="arch" type="xml">
+                <field name="origin" position="after">
+					<field name="analytic_account_id" />
+					<field name="total_cost_wc" />
+					<field name="raw_cost"/>
+					<field name="total_cost"/>
+					<field name="total_cost_unit"/>
+				</field>
+				<field name="routing_id" position="after">
+					<field name="mirror_center"/>
+					<field name="initial_price" invisible="1"/>
+					<field name="initial_qty" invisible="1"/>
+					<field name="corrected" invisible="1"/>
+				</field>
+
+                <button name="post_inventory" position="attributes">
+                    <attribute name="attrs">
+                        {'invisible':1}
+                    </attribute>
+                </button>
+
+                <button name="button_mark_done" position="after">
+                    <button name="set_average_cost" string="Post Moves"
+                            attrs="{'invisible': ['|', ('corrected', '=', True), ('state', '!=', 'done')]}" type="object" class="oe_highlight"
+							confirm="Are you sure you want to continue this Operation?"/>
+                </button>
+            </field>
+        </record>
+
+		<record id="mrp_production_tree_view_cost_wc" model="ir.ui.view">
+			<field name="name">mrp.production.form</field>
+			<field name="model">mrp.production</field>
+			<field name="inherit_id" ref="mrp.mrp_production_tree_view" />
+			<field name="arch" type="xml">
+                <field name="state" position="before">
+                    <field name="date_planned_finished_wo"/>
+                </field>
+			</field>
+		</record>
+
+    </data>
+</odoo>

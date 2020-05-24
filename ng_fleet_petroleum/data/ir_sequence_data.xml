@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Sequences for Incoming Truck Order sale.order -->
+        <record id="seq_truck_in_order" model="ir.sequence">
+            <field name="name">Truck In Order</field>
+            <field name="code">truck.order.in</field>
+            <field name="prefix">TIO</field>
+            <field name="padding">3</field>
+        </record>
+
+        <!-- Sequences for Outgoing Truck order -->
+        <record id="seq_truck_out_order" model="ir.sequence">
+            <field name="name">Truck Out Order</field>
+            <field name="code">truck.order.out</field>
+            <field name="prefix">TOO</field>
+            <field name="padding">3</field>
+        </record>
+
+        <!-- Sequences for Outgoing Truck order -->
+        <record id="seq_station_recharges" model="ir.sequence">
+            <field name="name">Station Recharges</field>
+            <field name="code">station.recharges</field>
+            <field name="prefix">RCH/</field>
+            <field name="padding">3</field>
+        </record>
+
+    </data>
+</odoo>

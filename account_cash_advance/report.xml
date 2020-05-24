@@ -1,0 +1,16 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<odoo>
+    <data>
+    
+        <report
+            auto="False"
+            id="cash_advance_report"
+            model="cash.advance"
+            name="cash.advance.print"
+            rml="account_cash_advance/report/print_expense_advance.rml"
+            string="Print Expense Advance"
+            usage="default"
+            />
+
+    </data>
+</odoo>

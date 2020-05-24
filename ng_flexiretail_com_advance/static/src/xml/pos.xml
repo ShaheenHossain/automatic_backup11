@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-extend="PosTicket">
+        <t t-jquery=".pos-center-align:first" t-operation="before">
+            <div style="text-align:center;align-items:center">
+                <img t-att-src='widget.pos.company_logo_base64' /></div>
+        </t>
+    </t>
+</templates>

@@ -1,0 +1,44 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<odoo>
+	<data>
+
+		<record model="ir.ui.view" id="view_company_employee_journal">
+			<field name="name">res.company.form.inherit</field>
+			<field name="inherit_id" ref="base.view_company_form" />
+			<field name="model">res.company</field>
+			<field name="arch" type="xml">
+				<data>
+					<notebook position="inside">
+						<page string="Default Journals">
+							<group col="4" colspan="4">
+								<field name="cash_employee_journal" select="1" />
+								<field name="ex_employee_journal" select="1" />
+								<field name="ret_employee_journal" select="1" />
+							</group>
+						</page>
+					</notebook>
+				</data>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_company_employee_cash">
+			<field name="name">res.company.form.inherit</field>
+			<field name="inherit_id" ref="base.view_company_form" />
+			<field name="model">res.company</field>
+			<field name="arch" type="xml">
+				<data>
+					<notebook position="inside">
+						<page string="Default Employee Accounts">
+							<group col="4" colspan="4">
+								<field name="cash_employee_account" select="1" />
+								<field name="ex_employee_account" select="1" />
+								<field name="ret_employee_account" select="1" />
+							</group>
+						</page>
+					</notebook>
+				</data>
+			</field>
+		</record>
+
+	</data>
+</odoo>

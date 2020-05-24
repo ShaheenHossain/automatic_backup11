@@ -1,0 +1,130 @@
+<odoo>
+<data>
+
+<!-- Refund Cash Advance for expense -->
+
+    <record model="ir.ui.view" id="view_account_refund_advance_main_form">
+        <field name="name">refund.advance.form</field>
+        <field name="model">refund.advance</field>
+        <field name="arch" type="xml">
+            <form string="Refund Advances">
+                <header>
+                   <button name="approve" states="draft"  class="oe_highlight" string="Approve" type="object" groups="account_cash_advance.advance_manager"/>
+                   <button name="set_to_draft" states="reject" string="Set to Draft" groups="account_cash_advance.advance_manager" type="object"/> 
+                   <button name="set_to_close" states="open" string="Reject" type="object" groups="account_cash_advance.advance_manager"/>
+                   <button name="create_move" string="Create Move"  class="oe_highlight" states="approve" type="object" groups="account.group_account_user"/>
+                   <button name="set_to_close_paid" states="approve" string="Reject" type="object" groups="account.group_account_user"/>
+                   <button name="set_to_draft_app" states="cancel" string="Set to Draft" type="object" groups="account_cash_advance.advance_manager" />
+                   <button name="set_to_cancel" states="draft" string="Cancel" type="object" groups="account_cash_advance.advance_manager"/>
+                    <field name="state" readonly="1" widget="statusbar" colspan="2"/>
+                </header>
+                    <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name"/></h1>
+                        <label for="emp_id" class="oe_edit_only"/>
+                        <h2><field name="emp_id"/></h2>
+                    </div>
+                <group>
+                <separator string="General" colspan="4"/>
+                <field name="department_id"/>
+                <field name="advance" readonly="0"/>
+                <field name="date"/>
+                <field name="company_id" widget="selection" groups="base.group_multi_company"/><newline/>
+                <separator string="Accounting Information" colspan="4"/>
+                <field name="update_cash" groups="account.group_account_user" attrs="{'invisible':[('state','!=','approve'),('state','!=','paid')]}" />
+                <field context="{'advance_cash': True}" name="cash_id" groups="account.group_account_user" attrs="{'invisible':[('update_cash','=',False)], 'required':[('update_cash','=',True)]}">
+                </field>
+                <field name="journal_id" groups="account.group_account_user"  />
+                <field name="currency_id" groups="account.group_account_user"  />
+                <field name="employee_account"  groups="account.group_account_user" />
+                <field name="move_id1" groups="account.group_account_user" attrs="{'invisible':[('state','!=','approve'),('state','!=','paid')]}" /><newline/>
+                <separator string="Allocate Advances" colspan="4"/><newline/>
+                <field name="refund_line" colspan="4" nolabel="1">
+                    <tree string="Allocate Advances" editable="bottom" >
+                        <field name="ret_id"/> 
+                        <field name="amount"/> <!-- #test -->
+                    </tree></field>
+
+                <separator string="" colspan="4"/><newline/>
+                <separator string="Notes" colspan="4"/>
+                <field name="notes" colspan="4" nolabel="1"/>
+                </group></sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+                
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_account_refund_advance_main_tree">
+        <field name="name">refund.advance.tree</field>
+        <field name="model">refund.advance</field>
+        <field name="arch" type="xml">
+            <tree string="Refund Advances">
+                <field name="name"/>
+                <field name="emp_id"/>
+                <field name="department_id" invisible="1"/>
+                <field name="date"/>
+                <field name="journal_id" invisible="1"/>
+                <field name="employee_account" invisible="1"/>
+                <field name="advance"/>
+                <field name="company_id" widget="selection" groups="base.group_multi_company"/>
+                <field name="state" readonly="1" widget="statusbar" colspan="2"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record model="ir.ui.view" id="view_account_refund_advance_main_search">
+        <field name="name">refund.advance.search</field>
+        <field name="model">refund.advance</field>
+        <field name="arch" type="xml">
+            <search string="Search Refund Advances">
+                <filter icon="terp-check" domain="[('state','=','draft')]" string="To Approve"/>
+                <filter icon="terp-camera_test" domain="[('state','=','approve')]" string="Validated" name="bb"/>
+                <filter icon="terp-check" domain="[('state','=','paid')]" string="Paid" name="paid"/>
+                <separator orientation="vertical"/>
+                <filter icon="terp-go-year" name="year" string="Year" domain="[('date','&gt;=',time.strftime('%%Y-1-1')),('date','&lt;=',time.strftime('%%Y-12-31'))]"/>
+<!--                <filter icon="terp-go-month" name="This Month" string="Month" domain="[('date','&lt;=',(datetime.date.today()+relativedelta(day=31)).strftime('%%Y-%%m-%%d')),('date','&gt;=',(datetime.date.today()-relativedelta(day=1)).strftime('%%Y-%%m-%%d'))]"/>
+                <filter icon="terp-go-month" name="This Month-1" string=" Month-1" 
+                 domain="[('date','&lt;=', (datetime.date.today() - relativedelta(day=31, months=1)).strftime('%%Y-%%m-%%d')),('date','&gt;=',(datetime.date.today() - relativedelta(day=1,months=1)).strftime('%%Y-%%m-%%d'))]"
+                 help="Maintenance during last month"/>-->
+                <separator orientation="vertical"/>
+                <field name="name"/>
+                <field name="emp_id"/>
+                <field name="department_id" widget="selection" invisible="0"/>
+                <field name="date"/>
+                <field name="journal_id" widget="selection" invisible="0"/>
+                <field name="employee_account" invisible="0"/>
+                <field name="state"/>
+                <field name="company_id" widget="selection" groups="base.group_multi_company"/>
+                <newline/>
+                <group expand="0" string="Group By..." >
+                    <filter name="group_date_from1" string="Date" icon="terp-go-month" domain="[]" context="{'group_by':'date'}"/>
+                    <separator orientation="vertical"/>
+                    <filter name="group_employee1" string="Employee" icon="terp-personal" domain="[]" context="{'group_by':'emp_id'}"/>
+                    <filter name="group_category" string="Department" icon="terp-stock_symbol-selection" domain="[]" context="{'group_by':'department_id'}"/>
+                    <separator orientation="vertical"/>
+                    <filter string="Journal" icon="terp-folder-orange" domain="[]" context="{'group_by':'journal_id'}"/>
+                    <filter string="Employee Account" icon="terp-personal" domain="[]" context="{'group_by':'employee_account'}"/>
+                    <separator orientation="vertical"/>
+                    <filter string="State" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'state'}"/>
+                    <filter string="Company" icon="terp-go-home" domain="[]" context="{'group_by':'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    
+    <record model="ir.actions.act_window" id="action_account_refund_advance_paid">
+        <field name="name">Advances Refund</field>
+        <field name="res_model">refund.advance</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+        
+    <menuitem id="menu_finance_refund_advance_salary_account" name="Advances Refund" action="action_account_refund_advance_paid" parent="menu_finance_cash_advance_salary_main" sequence="9990"/>        
+
+</data>
+</odoo>

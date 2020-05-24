@@ -1,0 +1,8 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+attendant_return_line_id,attendant_return_line_request,model_attendant_return_line,base.group_user,1,1,1,1
+create_dispenser_id,create_dispenser_request,model_create_dispenser,base.group_user,1,1,1,1
+create_dispenser_readings_id,create_dispenser_readings_request,model_create_dispenser_readings,base.group_user,1,1,1,1
+pump_config_id,pump_config_request,model_pump_config,base.group_user,1,1,1,1
+metre_management_id,metre_management_request,model_metre_management,base.group_user,1,1,1,1
+attendant_return_id,attendant_return_request,model_attendant_return,base.group_user,1,1,1,1
+loading_ticket_id,loading_ticket_request,model_loading_ticket,base.group_user,1,1,1,1

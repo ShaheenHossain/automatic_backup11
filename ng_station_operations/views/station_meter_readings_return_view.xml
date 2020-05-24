@@ -1,0 +1,68 @@
+<odoo>
+    <data>
+         <!--Start Metre_Management  -->
+
+
+         <!-- Form View  -->
+        <record id="ng_station_operation_metre_management_form_view" model="ir.ui.view">
+            <field name="name">Metre Management Form View</field>
+            <field name="model">metre.management</field>
+            <field name="arch" type="xml">
+                 <form>
+                      <header>
+                        <button name="confirm_adjustment" states="draft" string="Confirm Adjustment" type="object" class="oe_highlight"/>
+                          <field name="state" widget="statusbar"/>
+                    </header>
+
+                     <sheet>
+                        <group>
+                            <field name="date"/>
+                            <field name="name"/>
+                            <field name="related_pump"/>
+                            <field name="related_product"/>
+                            <field name="company_id"/>
+                        </group>
+                        <group>
+                            <field name="opening_meter_reading"/>
+                            <field name="adjustment"/>
+                            <field name="adjusted_closing_reading"/>
+                            <field name="remark"/>
+                        </group>
+                    </sheet>
+                 </form>
+            </field>
+        </record>
+        <!-- Tree View  -->
+
+       <record id="ng_station_operation_metre_management_tree_view" model="ir.ui.view">
+           <field name="name">Metre Management Tree View</field>
+           <field name="model">metre.management</field>
+           <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="adjustment"/>
+                    <field name="remark"/>
+                </tree>
+           </field>
+       </record>
+         <!--Ends Metre_Management  -->
+
+
+      <record model="ir.actions.act_window" id="action_ng_station_operation_metre_management">
+         <field name="name">Metre Management Configuration</field>
+         <field name="res_model">metre.management</field>
+         <field name="view_type">form</field>
+         <field name="view_model">form,tree</field>
+          <field name="view_id" ref="ng_station_operation_metre_management_tree_view"/>
+     </record>
+
+
+         <!-- Station Metre Management Menu -->
+        <menuitem id="ng_station_operation_metre_management" name="Metre Management"
+                  parent="station_operation_top_menu" groups="ng_station_operations.group_manager"/>
+
+        <menuitem id="ng_station_operation_metre_adjustment" name="Metre Adjustment" sequence="15" parent="ng_station_operation_metre_management"
+            action="action_ng_station_operation_metre_management"/>
+
+    </data>
+</odoo>

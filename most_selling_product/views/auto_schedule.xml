@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_autoschedule_tsp_tree" model="ir.ui.view">
+        <field name="name">AutoSchedule Top Selling Products</field>
+        <field name="model">autoschedule.tsp</field>
+        <field name="arch" type="xml">
+            <tree string="AutoSchedule" editable="bottom">
+                <field name="company_id"
+                    options='{"no_quick_create":True,"no_create_edit": True,"no_create": True,"no_open": True}' />
+                <field name="warehouse_ids" widget="many2many_tags"
+                    options='{"no_quick_create":True,"no_create_edit": True,"no_create": True,"no_open": True}' />
+                <field name="report_send_for" />
+                <field name="to_send" />
+                <field name="partner_ids" widget="many2many_tags"
+                    options='{"no_quick_create":True,"no_create_edit": True,"no_create": True,"no_open": True}' />
+                <field name="enable" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_autoschedule_tsp_action" model="ir.actions.act_window">
+        <field name="name">AutoSchedule Email</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">autoschedule.tsp</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+</odoo>
